@@ -33,7 +33,7 @@ var Tower = Class.create(Sprite, {
    
    isReloaded: function(elapsed) {
       if (DEBUG) {
-         console.log("Tower: Reload progress: " + this.attackTimer + " / " + this.speed);
+         //console.log("Tower: Reload progress: " + this.attackTimer + " / " + this.speed);
       }
       
       this.attackTimer += (elapsed * 0.001);
@@ -52,7 +52,7 @@ var Tower = Class.create(Sprite, {
    
    attack: function(enemyList) {
       if (DEBUG) {
-         console.log("Tower: Attacking: " + enemyList);
+         //console.log("Tower: Attacking: " + enemyList);
       }
       
 		if (this instanceof AreaTower)

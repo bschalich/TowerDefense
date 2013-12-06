@@ -1,16 +1,10 @@
-enchant();
-
-var GAME_SIZE = 600;
-var DEBUG = true;
-
-window.onload = function() {
-   var game = new Game(GAME_SIZE, GAME_SIZE);
-   
-   game.preload(
+'assets',
 'assets/Wave_start.wav',
 'assets/button_pressed.wav',
 'assets/lose-health.wav',
+'assets/tilesets',
 'assets/tilesets/map1.png',
+'assets/enemies',
 'assets/enemies/skarmorydebug.png',
 'assets/enemies/porygondebug.png',
 'assets/enemies/groudondebug.png',
@@ -31,6 +25,7 @@ window.onload = function() {
 'assets/enemies/suicuneSheet.png',
 'assets/enemies/omanyteSheet.png',
 'assets/enemies/arondebug.png',
+'assets/towers',
 'assets/towers/industrialAoE3.png',
 'assets/towers/industrialRanged1.png',
 'assets/towers/neonStatus2.png',
@@ -44,12 +39,5 @@ window.onload = function() {
 'assets/towers/neonStatus1.png',
 'assets/towers/industrialStatus3.png',
 'assets/towers/industrialRanged2.png',
-'assets/levels/level1.png');
-   
-   game.fps = 30;
-   game.onload = function() {
-      game.pushScene(new Level1('assets/level1.png'));
-   };
-   
-   game.start();
-};
+'assets/levels',
+'assets/levels/level1.png',

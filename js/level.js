@@ -49,7 +49,7 @@ var Level = Class.create(Scene, {
    attack: function(elapsed) {
       for (var i = 0; i < this.towers.childNodes.length; i++) {
          if (DEBUG) {
-            console.log("Level: Attacking with tower: " + i);
+            //console.log("Level: Attacking with tower: " + i);
          }
          
          // For each tower, attack some enemies
@@ -88,17 +88,21 @@ var Level1 = Class.create(Level, {
 	initialize: function() {
 	
       var map = new Map(64, 64);
-      map.image = Game.instance.assets['assets/map1.png'];
-      map.loadData([
-          [49,49,49,49,49,49,49,49,49,49],
-          [20,20,20,20,20,20,20,20,20,20],
-          [20,20,20,20,20,20,20,20,20,20],
-          [69,69,69,69,69,69,69,69,69,69],
-          [132,132,132,132,132,132,132,132,132,132],
-          [20,20,20,20,20,20,20,20,20,20],
-          [17,17,17,17,17,17,17,17,17,17],
-          [33,33,33,33,33,33,33,33,33,33]
-      ],[
+      map.image = Game.instance.assets['assets/tilesets/map1.png'];
+      
+      var mapData = [
+          [ 49, 49, 49, 49, 49, 49, 49, 49, 49, 49],
+          [ 36,100,100,100,100, 36, 36, 36, 36, 36],
+          [ 36,100, 36, 36,100, 36, 36, 36, 36, 36],
+          [100,100, 36,100,100, 36,100,100,100,100],
+          [ 36, 36, 36,100, 36, 36,100, 36, 36, 36],
+          [ 36, 36, 36,100,100,100,100, 36, 36, 36],
+          [ 17, 17, 17, 17, 17, 17, 17, 17, 17, 17],
+          [ 33, 33, 33, 33, 33, 33, 33, 33, 33, 33]
+      ];
+      var mapCol = []
+      
+      map.loadData(mapData,[
           [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
           [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
           [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
@@ -108,48 +112,59 @@ var Level1 = Class.create(Level, {
           [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
           [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
       ]);
-      map.collisionData = [
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [1,1,1,1,1,1,1,1,1,1],
-          [0,0,0,0,0,0,0,0,0,0],
-          [1,1,1,1,1,1,1,1,1,1],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0]
-      ];
+      
+      // Set any 100 to a non-colliding tile.
+      for (var i = 0; i < mapData.length; i++) {
+         mapCol.push(new Array());
+         for (var j = 0; j < mapData[i].length; j++) {
+            mapCol[i][j] = (mapData[i][j] == 100 ? 0 : 1);
+         }
+      }
+      
+      map.collisionData = mapCol;
+      
+      // map.collisionData = [
+          // [1,1,1,1,1,1,0,0,0,0],
+          // [0,0,0,0,0,1,0,0,0,1],
+          // [1,0,1,1,0,1,1,1,1,1],
+          // [0,0,1,0,0,1,0,0,0,0],
+          // [1,1,1,0,1,1,0,1,1,1],
+          // [0,0,1,0,0,0,0,1,0,0],
+          // [0,0,1,1,1,1,1,1,0,0],
+          // [0,0,0,0,0,0,0,0,0,0]
+      // ];
    
 		var L1Enemies = [];
-		var L1W4 = [];
-			L1W4.push(new WalkEnemy(map));
-			L1W4.push(new WalkEnemy(map));
-			L1W4.push(new WalkEnemy(map));
-			L1W4.push(new WalkEnemy(map));
-			L1Enemies.push(L1W4);
-		var L1W3 = [];
-			L1W3.push(new WalkEnemy(map));
-			L1W3.push(new WalkEnemy(map));
-			L1W3.push(new WalkEnemy(map));
-			L1W3.push(new WalkEnemy(map));
-			L1Enemies.push(L1W3);
-		var L1W2 = [];
-			L1W2.push(new WalkEnemy(map));
-			L1W2.push(new WalkEnemy(map));
-			L1W2.push(new WalkEnemy(map));
-			L1W2.push(new WalkEnemy(map));
-			L1Enemies.push(L1W2);
+		// var L1W4 = [];
+			// L1W4.push(new AggronEnemy(map, 100));
+			// L1W4.push(new AggronEnemy(map, 100));
+			// L1W4.push(new AggronEnemy(map, 100));
+			// L1W4.push(new AggronEnemy(map, 100));
+			// L1Enemies.push(L1W4);
+		// var L1W3 = [];
+			// L1W3.push(new AggronEnemy(map, 100));
+			// L1W3.push(new AggronEnemy(map, 100));
+			// L1W3.push(new AggronEnemy(map, 100));
+			// L1W3.push(new AggronEnemy(map, 100));
+			// L1Enemies.push(L1W3);
+		// var L1W2 = [];
+			// L1W2.push(new AggronEnemy(map, 100));
+			// L1W2.push(new AggronEnemy(map, 100));
+			// L1W2.push(new AggronEnemy(map, 100));
+			// L1W2.push(new AggronEnemy(map, 100));
+			// L1Enemies.push(L1W2);
 		var L1W1 = [];
-			L1W1.push(new WalkEnemy(map));
-			L1W1.push(new WalkEnemy(map));
-			L1W1.push(new WalkEnemy(map));
-			L1W1.push(new WalkEnemy(map));
+			L1W1.push(new AggronEnemy(map, 100));
+			// L1W1.push(new AggronEnemy(map, 100));
+			// L1W1.push(new AggronEnemy(map, 100));
+			// L1W1.push(new AggronEnemy(map, 100));
 			L1Enemies.push(L1W1);
          
 		Level.apply(this, [L1Enemies, map]);
       
-      var st = new SingleTower('assets/groudonSheet.png');
+      var st = new SingleTower('assets/towers/industrialRanged1.png');
       st.x = 300; st.y = 100;
       
-      this.towers.addChild(st);
+      //this.towers.addChild(st);
 	}
 });
