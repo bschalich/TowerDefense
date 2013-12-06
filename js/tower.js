@@ -1,3 +1,5 @@
+enchant();
+
 // Tower constants
 
 var AreaTowerRange = 50;
