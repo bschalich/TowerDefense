@@ -18,7 +18,7 @@ var SingleTowerSpeed = 1;
 var SingleTowerBlast = 1;
 
 var Tower = Class.create(Sprite, {
-   initialize: function(assetIndex, range, power, speed, blast, effect) {
+   initialize: function(assetIndex, range, power, speed, blast) {
       Sprite.apply(this, [64, 64]);
       this.image = Game.instance.assets[assetIndex];
       this.frame = 0;
@@ -27,14 +27,23 @@ var Tower = Class.create(Sprite, {
       this.power = power;
       this.speed = speed;
       this.blast = blast;
-      this.effect = effect;
       
-      this.attackTimer = 0;
+      this.attackTimer = 0.0;
    },
    
    isReloaded: function(elapsed) {
+      if (DEBUG) {
+         console.log("Tower: Reload progress: " + this.attackTimer + " / " + this.speed);
+      }
+      
       this.attackTimer += (elapsed * 0.001);
-      return (this.attackTimer >= this.speed);
+      
+      if (this.attackTimer >= this.speed) {
+         this.attackTimer = 0;
+         return true;
+      }
+      
+      return false;
    },
    
    inRange: function(enemy) {
@@ -42,6 +51,10 @@ var Tower = Class.create(Sprite, {
    },
    
    attack: function(enemyList) {
+      if (DEBUG) {
+         console.log("Tower: Attacking: " + enemyList);
+      }
+      
 		if (this instanceof AreaTower)
 			this.attackArea(enemyList);
 		if (this instanceof StatusTower)
@@ -55,7 +68,7 @@ var AreaTower = Class.create(Tower, {
    initialize: function(assetIndex) {
       Tower.apply(this, [assetIndex,
          AreaTowerRange, AreaTowerPower, AreaTowerSpeed,
-         AreaTowerBlast, AreaTowerEffect]);
+         AreaTowerBlast]);
    },
 	
 	attackArea: function(enemyList) {
@@ -70,7 +83,7 @@ var SingleTower = Class.create(Tower, {
    initialize: function(assetIndex) {
       Tower.apply(this, [assetIndex,
          SingleTowerRange, SingleTowerPower, SingleTowerSpeed,
-         SingleTowerBlast, SingleTowerEffect]);
+         SingleTowerBlast]);
    },
 	
 	attackSingle: function(enemyList) {
@@ -83,7 +96,7 @@ var StatusTower = Class.create(Tower, {
    initialize: function(assetIndex) {
       Tower.apply(this, [assetIndex,
          StatusTowerRange, StatusTowerPower, StatusTowerSpeed,
-         StatusTowerBlast, StatusTowerEffect]);
+         StatusTowerBlast]);
    },
 	
 	applyStatus: function(enemyList) {

@@ -48,9 +48,13 @@ var Level = Class.create(Scene, {
    // but that would introduce several additional event handlers triggering every frame.
    attack: function(elapsed) {
       for (var i = 0; i < this.towers.childNodes.length; i++) {
+         if (DEBUG) {
+            console.log("Level: Attacking with tower: " + i);
+         }
+         
          // For each tower, attack some enemies
          var tower = this.towers.childNodes[i];
-         if (!tower.isReloaded()) continue;
+         if (!tower.isReloaded(elapsed)) continue;
          
          var numAttacks = 0;
 			var enemyList = [];
@@ -142,5 +146,10 @@ var Level1 = Class.create(Level, {
 			L1Enemies.push(L1W1);
          
 		Level.apply(this, [L1Enemies, map]);
+      
+      var st = new SingleTower('assets/groudonSheet.png');
+      st.x = 300; st.y = 100;
+      
+      this.towers.addChild(st);
 	}
 });
