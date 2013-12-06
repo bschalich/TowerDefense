@@ -1,19 +1,12 @@
-enchant();
 
-
-var EnemySpawnRateInWave = 60;
-var WaveSpawnRate = 400;
 
 var Level = Class.create(Scene, {
-   initialize: function(enemyListList, pathList) {
+   initialize: function(assetName) {
       Scene.apply(this);
 		
 		bg = new Sprite(GAME_SIZE, GAME_SIZE);
       bg.frame = 0;
-      bg.image = Game.instance.assets['assets/levelbg.png'];
-		this.addChild(bg);
-      
-      this.drawMap(pathList);
+      bg.image = game.assets['assets/level1.png'];
       
       // Add our group of enemies, for easy access later
       this.enemies = new Group();
@@ -23,36 +16,12 @@ var Level = Class.create(Scene, {
       this.towers = new Group();
       this.addChild(this.towers);
       
-      this.pathList = pathList;
-		
-		this.enemyListList = enemyListList;
-		this.currentWave = this.enemyListList.pop();
-		this.spawnFrame = 0;
-      
       this.addEventListener(Event.ENTER_FRAME, this.everyFrame);
    },
    
-   drawMap: function(pathList) {
-      
-   }
-   
    everyFrame: function(event) {
       this.attack(event.elapsed);
-		this.spawnEnemies();
    },
-	
-	spawnEnemies: function() {
-		this.spawnFrame++;
-		if (this.spawnFrame % EnemySpawnRateInWave == 0
-			&& this.currentWave.length > 0) {
-			this.enemies.addChild(this.currentWave.pop());
-		}
-		
-		if (this.spawnFrame % WaveSpawnRate == 0
-			&& this.enemyListList.length > 0) {
-			this.currentWave = this.enemyListList.pop();
-		}
-	},
    
    // attack is a relation between two types. We want to calculate this on the Scene,
    // which knows about both types' instances. We could offload some of this to the types,
@@ -90,3 +59,5 @@ var Level = Class.create(Scene, {
       }
    },
 });
+      
+            
