@@ -38,25 +38,9 @@ var Enemy = Class.create(Sprite, {
          this.direction = UP;
    },
    
-   checkCollide: function(gridX, gridY) {
-      if (this.map.collisionData[gridY][gridX] == 1)
-         return true;
-      return false;
-   },
-   
    newDirection: function() {
       var gridX = Math.floor((this.x) / 64);
       var gridY = Math.floor((this.y) / 64);
-      
-      //console.log(this.x + ", " + this.y);
-      
-      
-      // switch (this.direction) {
-         // case RIGHT: if (this.checkCollide(gridX + 1, gridY)){ this.goUpOrDown();} break;
-         // case LEFT : if (this.checkCollide(gridX - 1, gridY)){ this.goUpOrDown();} break;
-         // case UP   : if (this.checkCollide(gridX, gridY)){ this.goLeftOrRight();} break;
-         // case DOWN : if (this.checkCollide(gridX, gridY + 1)){ this.goLeftOrRight();} break;
-      // }
       
       switch (this.direction) {
          case RIGHT: if (this.map.hitTest(this.x + 64, this.y)){ this.goUpOrDown();} break;
