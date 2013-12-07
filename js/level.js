@@ -1,7 +1,7 @@
 enchant();
 
 var EnemySpawnRateInWave = 60;
-var WaveSpawnRate = 800;
+var WaveSpawnRate = 500;
 
 var Level = Class.create(Scene, {
    initialize: function(enemyListList, map) {
@@ -17,6 +17,10 @@ var Level = Class.create(Scene, {
       // Add our group of towers, for easy access later
       this.towers = new Group();
       this.addChild(this.towers);
+      
+      this.buttons = new Group();
+      this.addChild(this.buttons);
+      this.buttons.addChild(new SingleTowerBuy());
 		
 		this.enemyListList = enemyListList;
 		this.currentWave = this.enemyListList.pop();
@@ -48,9 +52,6 @@ var Level = Class.create(Scene, {
    // but that would introduce several additional event handlers triggering every frame.
    attack: function(elapsed) {
       for (var i = 0; i < this.towers.childNodes.length; i++) {
-         if (DEBUG) {
-            //console.log("Level: Attacking with tower: " + i);
-         }
          
          // For each tower, attack some enemies
          var tower = this.towers.childNodes[i];
@@ -59,11 +60,17 @@ var Level = Class.create(Scene, {
          var numAttacks = 0;
 			var enemyList = [];
          for (var j = 0; j < this.enemies.childNodes.length; j++) {
+            // Command the tower to attack the enemy
+            var enemy = this.enemies.childNodes[j];
+            
+            if (enemy.x < 0 || enemy.x > 10 * 64 || enemy.y < 0 || enemy.y > 8 * 64) {
+               this.enemies.removeChild(enemy);
+               //this.takeDamage();
+            }
+            
             // If there are fewer enemies than we can target, break
             if (numAttacks == tower.blast) break;
             
-            // Command the tower to attack the enemy
-            var enemy = this.enemies.childNodes[j];
             if (!tower.inRange(enemy)) continue;
             
             // If we are in range, attack and increment our attack count
@@ -75,8 +82,11 @@ var Level = Class.create(Scene, {
 			tower.attack(enemyList);
 			
 			for (var i = 0; i < enemyList.length; i++) {
+            console.log("Level: Dead enemies");
+            enemy = enemyList[i];
 				// If the enemy died, remove it
 				if (enemy.health <= 0) {
+               console.log(enemy);
 					this.enemies.removeChild(enemy);
 				}
 			}
@@ -98,11 +108,15 @@ var Level1 = Class.create(Level, {
           [ 36, 36, 36,100, 36, 36,100, 36, 36, 36],
           [ 36, 36, 36,100,100,100,100, 36, 36, 36],
           [ 17, 17, 17, 17, 17, 17, 17, 17, 17, 17],
-          [ 33, 33, 33, 33, 33, 33, 33, 33, 33, 33]
+          [ 33, 33, 33, 33, 33, 33, 33, 33, 33, 33],
+          [ 71, 71, 71, 71, 71, 71, 71, 71, 71, 71],
+          [ 71, 71, 71,100, 71, 71, 71, 71, 71, 71]
       ];
       var mapCol = []
       
       map.loadData(mapData,[
+          [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+          [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
           [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
           [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
           [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
@@ -135,36 +149,35 @@ var Level1 = Class.create(Level, {
       // ];
    
 		var L1Enemies = [];
-		// var L1W4 = [];
-			// L1W4.push(new AggronEnemy(map, 100));
-			// L1W4.push(new AggronEnemy(map, 100));
-			// L1W4.push(new AggronEnemy(map, 100));
-			// L1W4.push(new AggronEnemy(map, 100));
-			// L1Enemies.push(L1W4);
-		// var L1W3 = [];
-			// L1W3.push(new AggronEnemy(map, 100));
-			// L1W3.push(new AggronEnemy(map, 100));
-			// L1W3.push(new AggronEnemy(map, 100));
-			// L1W3.push(new AggronEnemy(map, 100));
-			// L1Enemies.push(L1W3);
-		// var L1W2 = [];
-			// L1W2.push(new AggronEnemy(map, 100));
-			// L1W2.push(new AggronEnemy(map, 100));
-			// L1W2.push(new AggronEnemy(map, 100));
-			// L1W2.push(new AggronEnemy(map, 100));
-			// L1Enemies.push(L1W2);
+		var L1W4 = [];
+			L1W4.push(new AggronEnemy(map, 100));
+			L1W4.push(new AggronEnemy(map, 100));
+			L1W4.push(new AggronEnemy(map, 100));
+			L1W4.push(new AggronEnemy(map, 100));
+			L1Enemies.push(L1W4);
+		var L1W3 = [];
+			L1W3.push(new AggronEnemy(map, 100));
+			L1W3.push(new AggronEnemy(map, 100));
+			L1W3.push(new AggronEnemy(map, 100));
+			L1W3.push(new AggronEnemy(map, 100));
+			L1Enemies.push(L1W3);
+		var L1W2 = [];
+			L1W2.push(new AggronEnemy(map, 100));
+			L1W2.push(new AggronEnemy(map, 100));
+			L1W2.push(new AggronEnemy(map, 100));
+			L1W2.push(new AggronEnemy(map, 100));
+			L1Enemies.push(L1W2);
 		var L1W1 = [];
 			L1W1.push(new AggronEnemy(map, 100));
-			// L1W1.push(new AggronEnemy(map, 100));
-			// L1W1.push(new AggronEnemy(map, 100));
-			// L1W1.push(new AggronEnemy(map, 100));
+			L1W1.push(new AggronEnemy(map, 100));
+			L1W1.push(new AggronEnemy(map, 100));
+			L1W1.push(new AggronEnemy(map, 100));
 			L1Enemies.push(L1W1);
          
 		Level.apply(this, [L1Enemies, map]);
       
-      var st = new SingleTower('assets/towers/industrialRanged1.png');
-      st.x = 300; st.y = 100;
+      var st = new SingleTower('assets/towers/industrialRanged1.png', 250, 130);
       
-      //this.towers.addChild(st);
+      this.towers.addChild(st);
 	}
 });

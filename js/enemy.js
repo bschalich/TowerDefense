@@ -64,21 +64,23 @@ var Enemy = Class.create(Sprite, {
       
       this.newDirection();
       
-      var movement = (event.elapsed * 0.001) * this.speed;
+      // We are trying to avoid a threshold issue that causes enemies to leave the path
+      // Use 0.0009 instead of 0.001
+      var movement = (event.elapsed * 0.0009) * this.speed;
       switch (this.direction) {
          case UP   : this.y -= movement; break;
          case DOWN : this.y += movement; break;
          case LEFT : this.x -= movement; break;
          case RIGHT: this.x += movement; break;
       }
-      this.x = Math.ceil(this.x);
-      this.y = Math.ceil(this.y);
+      // this.x = Math.ceil(this.x);
+      // this.y = Math.ceil(this.y);
 	}
 });
 
 var AggronEnemy = Class.create(Enemy, {
 	initialize: function(map, pathTile) {
-		Enemy.apply(this, ['assets/enemies/aggronSheet.png', 20, 60, map, pathTile]);
+		Enemy.apply(this, ['assets/enemies/aggronSheet.png', 30, 40, map, pathTile]);
       
 		this.addEventListener(Event.ENTER_FRAME, this.walk);
 	}

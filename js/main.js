@@ -1,12 +1,14 @@
 enchant();
 
-var GAME_SIZE = 600;
+var GAME_SIZE = 640;
 var DEBUG = true;
 
 window.onload = function() {
    var game = new Game(GAME_SIZE, GAME_SIZE);
    
    game.preload(
+'assets/ui/singletowerbuy.png',
+'assets/towers/range.png',
 'assets/Wave_start.wav',
 'assets/button_pressed.wav',
 'assets/lose-health.wav',
