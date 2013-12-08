@@ -115,8 +115,11 @@ var SingleTower = Class.create(Tower, {
 	
 	attackSingle: function(enemyList) {
       //console.log(enemyList[0]);
-		if (enemyList.length > 0)
+		if (enemyList.length > 0){
+		   var blt = new Shoot('assets/enemies/groudonSheet.png', this.x, this.y, enemyList[0].x, enemyList[0].y);
+         this.parentNode.parentNode.addChild(blt);
 			enemyList[0].health -= this.power;
+		}
 	}
 });
 

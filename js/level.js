@@ -80,6 +80,7 @@ var Level = Class.create(Scene, {
          }
 		 
 			tower.attack(enemyList);
+
 			
 			for (var i = 0; i < enemyList.length; i++) {
             console.log("Level: Dead enemies");
