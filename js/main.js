@@ -7,8 +7,6 @@ window.onload = function() {
    var game = new Game(GAME_SIZE, GAME_SIZE);
    
    game.preload(
-'assets/ui/singletowerbuy.png',
-'assets/towers/range.png',
 'assets/Wave_start.wav',
 'assets/button_pressed.wav',
 'assets/lose-health.wav',
@@ -46,7 +44,13 @@ window.onload = function() {
 'assets/towers/neonStatus1.png',
 'assets/towers/industrialStatus3.png',
 'assets/towers/industrialRanged2.png',
-'assets/levels/level1.png');
+'assets/levels/level1.png',
+'assets/UI/ButtonTemplate.png',
+'assets/UI/Overlay.png',
+'assets/UI/PauseScreen.png',
+'assets/UI/Resource.png',
+'assets/UI/Pause.png',
+'assets/UI/Resume.png');
    
    game.fps = 30;
    game.onload = function() {
