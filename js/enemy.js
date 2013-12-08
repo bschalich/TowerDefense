@@ -11,7 +11,7 @@ var Enemy = Class.create(Sprite, {
 		this.image = Game.instance.assets[assetIndex];
 		this.frame = 0;
       
-      this.y = 3 * 64;
+      this.y = 4 * 64;
 		
       this.map = map;
       this.direction = RIGHT;
