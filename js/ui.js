@@ -129,7 +129,7 @@ var MenuScreen = Class.create(Scene, {
 
 var NextLevel = Class.create(Button, {
    initialize: function() {
-      Button.apply(this, ['assets/ui/Resume.png', 102, 29]);
+      Button.apply(this, ['assets/ui/Resume.png', 300, 250, 102, 29]);
       
       this.addEventListener(Event.TOUCH_END, this.nextLevel);
    },

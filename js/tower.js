@@ -13,7 +13,7 @@ var AreaTowerSpeed = 2;
 var AreaTowerBlast = 10;
 
 var StatusTowerRange = 1.5;
-var StatusTowerPower = 15;
+var StatusTowerPower = 5;
 var StatusTowerSpeed = 0.2;
 var StatusTowerBlast = 10;
 
@@ -22,8 +22,8 @@ var SingleTowerPower = 8;
 var SingleTowerSpeed = 1;
 var SingleTowerBlast = 1;
 
-var SingleUpgradeLevel = 2;
-var StatusUpgradeLevel = 1;
+var SingleUpgradeLevel = 1;
+var StatusUpgradeLevel = 2;
 var AreaUpgradeLevel   = 3;
 
 var Tower = Class.create(Sprite, {
@@ -120,6 +120,7 @@ var AreaTower = Class.create(Tower, {
 var SingleTower = Class.create(Tower, {
    initialize: function(x, y) {
       var assetIndex = 'assets/towers/stoneRanged' + SingleUpgradeLevel + '.png';
+      console.log(assetIndex);
       Tower.apply(this, [assetIndex,
          SingleTowerRange, SingleTowerPower, SingleTowerSpeed,
          SingleTowerBlast, SingleTowerCost, x, y, SingleUpgradeLevel]);

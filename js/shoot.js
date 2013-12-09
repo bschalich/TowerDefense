@@ -12,7 +12,7 @@ var Shoot = Class.create(Sprite, {
       this.toX = toX+16;
       this.toY = toY+16;
 
-      this.moveSpeed = 15;
+      this.moveSpeed = 8;
 
       //Have the bullet go to the target
       this.addEventListener(Event.ENTER_FRAME, function(){
