@@ -44,6 +44,20 @@ var SingleTowerBuy = Class.create(Button, {
    }
 });*/
 
+var PauseScreen = Class.create(Scene, {
+   initialize: function() {
+      Scene.apply(this);
+      
+      var pScreen = new UIPause();
+		pScreen.x = 220; pScreen.y = 245;
+		this.addChild(pScreen);
+		
+		var rButt = new ResumeButton(pScreen);
+		rButt.x = 268; rButt.y = 358;
+		this.addChild(rButt);
+   }
+});
+
 
 
 var PauseButton = Class.create(Button, {
@@ -56,13 +70,15 @@ var PauseButton = Class.create(Button, {
 	},
 	
 	pauseGame: function() {
-		var pScreen = new UIPause();
-		pScreen.x = 220; pScreen.y = 245;
-		this.parentNode.addChild(pScreen);
+		// var pScreen = new UIPause();
+		// pScreen.x = 220; pScreen.y = 245;
+		// this.parentNode.addChild(pScreen);
 		
-		var rButt = new ResumeButton(pScreen);
-		rButt.x = 268; rButt.y = 358;
-		this.parentNode.addChild(rButt);
+		// var rButt = new ResumeButton(pScreen);
+		// rButt.x = 268; rButt.y = 358;
+		// this.parentNode.addChild(rButt);
+      
+      Game.instance.pushScene(new PauseScreen());
 	}
 });
 
@@ -86,7 +102,7 @@ var ResumeButton = Class.create(Button, {
 	},
 	
 	resumeGame: function(pScreen) {
-		this.parentNode.removeChild(this);
+		Game.instance.popScene();
 	}
 });
 

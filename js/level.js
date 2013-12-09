@@ -26,6 +26,37 @@ var Level = Class.create(Scene, {
 		this.currentWave = this.enemyListList.pop();
 		this.spawnFrame = 0;
       
+      // UI ELEMENTS BEGIN //
+      var res = new UIResource();
+		res.x = 0; res.y = 0;
+		this.addChild(res);
+	  
+		var over = new UIOverlay();
+		over.x = 0; over.y = 506;
+		this.addChild(over);
+
+		//THESE BUTTONS WILL BE REPLACED WITH DANTE'S SYSTEM LATER. FOR NOW IDGAF
+		var pbtn = new PauseButton();
+		pbtn.x = 3; pbtn.y = 555;
+		this.addChild(pbtn);
+	  
+		var btn1 = new UIButtons();
+		btn1.x = 375; btn1.y = 521;
+		this.addChild(btn1);
+	  
+		var btn2 = new UIButtons();
+		btn2.x = 440; btn2.y = 521;
+		this.addChild(btn2);
+	  
+		var btn3 = new UIButtons();
+		btn3.x = 505; btn3.y = 521;
+		this.addChild(btn3);
+	  
+		var btn4 = new UIButtons();
+		btn4.x = 570; btn4.y = 521;
+		this.addChild(btn4);
+		//END ALLCAPS COMMENTS
+      
       this.addEventListener(Event.ENTER_FRAME, this.everyFrame);
    },
    
@@ -189,35 +220,7 @@ var Level1 = Class.create(Level, {
          
 		Level.apply(this, [L1Enemies, map]);
       
-	 	var res = new UIResource();
-		res.x = 0; res.y = 0;
-		this.addChild(res);
-	  
-		var over = new UIOverlay();
-		over.x = 0; over.y = 506;
-		this.addChild(over);
-
-		//THESE BUTTONS WILL BE REPLACED WITH DANTE'S SYSTEM LATER. FOR NOW IDGAF
-		var pbtn = new PauseButton();
-		pbtn.x = 3; pbtn.y = 555;
-		this.addChild(pbtn);
-	  
-		var btn1 = new UIButtons();
-		btn1.x = 375; btn1.y = 521;
-		this.addChild(btn1);
-	  
-		var btn2 = new UIButtons();
-		btn2.x = 440; btn2.y = 521;
-		this.addChild(btn2);
-	  
-		var btn3 = new UIButtons();
-		btn3.x = 505; btn3.y = 521;
-		this.addChild(btn3);
-	  
-		var btn4 = new UIButtons();
-		btn4.x = 570; btn4.y = 521;
-		this.addChild(btn4);
-		//END ALLCAPS COMMENTS
+	 	
 	  
       //var st = new SingleTower('assets/towers/industrialRanged1.png', 250, 195);
       var stat1 = new AreaTower('assets/towers/industrialAoE1.png', 160, 275);
