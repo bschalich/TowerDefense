@@ -236,12 +236,7 @@ var ArticunoEnemy = Class.create(Enemy, {
          3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 4, 4, 4, 4, 4, //up
          0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1];//down
         
-        articunoLabel = new Label("F");
-        articunoLabel.x = this.x;
-        articunoLabel.y = this.y;
-        //level.addChild(articunoLabel);
         
-        this.label = articunoLabel;
 		
 		this.addEventListener(Event.ENTER_FRAME, this.walk);
 		var label = new Label("F");
