@@ -96,9 +96,15 @@ window.onload = function() {
    game.onload = function() {
       PAUSE_SCREEN = new PauseScreen();
       MENU_SCREEN = new MenuScreen();
-      game.pushScene(new Level3('assets/level1.png'));
-      game.pushScene(new Level2('assets/level1.png'));
-      game.pushScene(new Level1('assets/level1.png'));
+      game.pushScene(new Level3(8));
+      game.pushScene(new Level2(7));
+      game.pushScene(new Level1(6));
+      game.pushScene(new Level3(5));
+      game.pushScene(new Level2(4));
+      game.pushScene(new Level1(3));
+      game.pushScene(new Level3(2));
+      game.pushScene(new Level2(1.5));
+      game.pushScene(new Level1(1));
       game.pushScene(new CutScene(7));
       game.pushScene(new CutScene(6));
       game.pushScene(new CutScene(5));
