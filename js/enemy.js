@@ -234,14 +234,14 @@ var ArticunoEnemy = Class.create(Enemy, {
       
 		this.addEventListener(Event.ENTER_FRAME, this.walk);
 		
-		this.addEventListener(Event.TOUCH_START, this.showType);
+		//this.addEventListener(Event.TOUCH_START, this.showType);
 	}
 });
 
-showType: function(event){
+/*showType: function(event){
 	Label label = new Label("F");
 	this.parentNode.parentNode.addChild(label);
-}
+}*/
 
 var PorygonEnemy = Class.create(Enemy, {
 	initialize: function(map, pathTile) {
