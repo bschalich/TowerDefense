@@ -16,11 +16,14 @@ var MapDataMinusOnes = [
        [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
    ];
 
-var createBuyHandler = function(map, towers, tower) {
+var createBuyHandler = function(level, TowerClass) {
    return function(event) {
-      if (event.y < 64 * 8 && map.checkTile(event.x, event.y) == 36) {
-         towers.addChild(
-            new tower(event.x, event.y));
+      if (event.y < 64 * 8 && level.map.checkTile(event.x, event.y) == 36) {
+         var tower = new TowerClass(event.x, event.y);
+         if (tower.cost <= level.gold) {
+            level.gold -= tower.cost;
+            level.towers.addChild(tower);
+         }
       }
    };
 };
@@ -50,6 +53,8 @@ var Level = Class.create(Scene, {
 		this.currentWave = this.enemyListList.pop();
 		this.spawnFrame = 0;
       
+      this.gold = 200;
+      
       // UI ELEMENTS BEGIN //
       var res = new UIResource();
 		res.x = 0; res.y = 0;
@@ -64,19 +69,19 @@ var Level = Class.create(Scene, {
 		this.addChild(pbtn);
 	  
 		var btn1 = new UIButtons(3, 380, 521,
-         createBuyHandler(this.map, this.towers, SingleTower));
+         createBuyHandler(this, SingleTower));
 		this.addChild(btn1);
 	  
 		var btn2 = new UIButtons(15, 445, 521,
-         createBuyHandler(this.map, this.towers, StatusTower));
+         createBuyHandler(this, StatusTower));
 		this.addChild(btn2);
 	  
 		var btn3 = new UIButtons(12, 510, 521,
-         createBuyHandler(this.map, this.towers, AreaTower));
+         createBuyHandler(this, AreaTower));
 		this.addChild(btn3);
 	  
 		var btn4 = new UIButtons(0, 575, 521,
-         createBuyHandler(this.map, this.towers, SingleTower));
+         createBuyHandler(this, SingleTower));
 		this.addChild(btn4);
 		//END ALLCAPS COMMENTS
       
@@ -93,6 +98,7 @@ var Level = Class.create(Scene, {
       if (this.enemyListList.length == 0
          && this.currentWave.length == 0) {
          if (this.enemies.childNodes.length == 0) {
+            PLAYER_GOLD += this.gold;
             Game.instance.replaceScene(MENU_SCREEN);
          }
       }
@@ -156,6 +162,7 @@ var Level = Class.create(Scene, {
 				if (enemy.health <= 0) {
                console.log(enemy);
 					this.enemies.removeChild(enemy);
+               this.gold += enemy.gold;
                if (enemy.label) this.enemyLabels.removeChild(enemy.label);
 				}
 			}

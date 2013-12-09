@@ -73,18 +73,18 @@ var MenuScreen = Class.create(Scene, {
    },
    
    checkGold: function(cost) {
-      return (cost < this.PlayerGold);
+      return (cost < PLAYER_GOLD);
    },
    
    upgradeSingle: function() {
       switch (SingleUpgradeLevel) {
          case 1: if (this.checkGold(SingleTowerL2)) {
-               this.PlayerGold -= SingleTowerL2;
+               PLAYER_GOLD -= SingleTowerL2;
                SingleUpgradeLevel++;
             }
             break;
          case 2: if (this.checkGold(SingleTowerL3)) {
-               this.PlayerGold -= SingleTowerL3;
+               PLAYER_GOLD -= SingleTowerL3;
                SingleUpgradeLevel++;
                // REMOVE UI UPGRADE ELEMENT
             }
@@ -95,12 +95,12 @@ var MenuScreen = Class.create(Scene, {
    upgradeStatus: function() {
       switch (StatusUpgradeLevel) {
          case 1: if (this.checkGold(StatusTowerL2)) {
-               this.PlayerGold -= StatusTowerL2;
+               PLAYER_GOLD -= StatusTowerL2;
                StatusUpgradeLevel++;
             }
             break;
          case 2: if (this.checkGold(StatusTowerL3)) {
-               this.PlayerGold -= StatusTowerL3;
+               PLAYER_GOLD -= StatusTowerL3;
                StatusUpgradeLevel++;
                // REMOVE UI UPGRADE ELEMENT
             }
@@ -111,12 +111,12 @@ var MenuScreen = Class.create(Scene, {
    upgradeArea: function() {
       switch (AreaUpgradeLevel) {
          case 1: if (this.checkGold(AreaTowerL2)) {
-               this.PlayerGold -= AreaTowerL2;
+               PLAYER_GOLD -= AreaTowerL2;
                AreaUpgradeLevel++;
             }
             break;
          case 2: if (this.checkGold(AreaTowerL3)) {
-               this.PlayerGold -= AreaTowerL3;
+               PLAYER_GOLD -= AreaTowerL3;
                AreaUpgradeLevel++;
                // REMOVE UI UPGRADE ELEMENT
             }
