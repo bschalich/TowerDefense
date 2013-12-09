@@ -13,7 +13,7 @@ var AreaTowerSpeed = 2;
 var AreaTowerBlast = 10;
 
 var StatusTowerRange = 1.5;
-var StatusTowerPower = 10;
+var StatusTowerPower = 15;
 var StatusTowerSpeed = 0.2;
 var StatusTowerBlast = 10;
 
