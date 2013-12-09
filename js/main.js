@@ -88,7 +88,7 @@ window.onload = function() {
 'assets/towers/neonAoE1.png',
 'assets/towers/stoneAoE1.png',
 'assets/towers/neonRanged1.png',
-//'assets/background.wav',
+'assets/background.wav',
 'assets/getItem.wav',
 'assets/ui/TutorialScreen.png',
 'assets/button_pressed.wav');

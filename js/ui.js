@@ -1,12 +1,12 @@
 
 // Tower upgrade costs:
-var SingleTowerL2 = 500;
-var StatusTowerL2 = 500;
-var AreaTowerL2   = 500;
+var SingleTowerL2 = 750;
+var StatusTowerL2 = 800;
+var AreaTowerL2   = 1000;
 
 var SingleTowerL3 = 2000;
-var StatusTowerL3 = 1000;
-var AreaTowerL3   = 1500;
+var StatusTowerL3 = 1500;
+var AreaTowerL3   = 2500;
 
 var SingleTowerSpec1 = 200;
 var SingleTowerSpec2 = 300;
