@@ -102,7 +102,7 @@ var Tower = Class.create(Sprite, {
 
 var AreaTower = Class.create(Tower, {
    initialize: function(x, y) {
-      var assetIndex = 'assets/towers/industrialAoE' + AreaUpgradeLevel + '.png';
+      var assetIndex = 'assets/towers/stoneAoE' + AreaUpgradeLevel + '.png';
       Tower.apply(this, [assetIndex,
          AreaTowerRange, AreaTowerPower, AreaTowerSpeed,
          AreaTowerBlast, AreaTowerCost, x, y, AreaUpgradeLevel]);
@@ -119,7 +119,7 @@ var AreaTower = Class.create(Tower, {
 
 var SingleTower = Class.create(Tower, {
    initialize: function(x, y) {
-      var assetIndex = 'assets/towers/industrialRanged' + SingleUpgradeLevel + '.png';
+      var assetIndex = 'assets/towers/stoneRanged' + SingleUpgradeLevel + '.png';
       Tower.apply(this, [assetIndex,
          SingleTowerRange, SingleTowerPower, SingleTowerSpeed,
          SingleTowerBlast, SingleTowerCost, x, y, SingleUpgradeLevel]);
@@ -137,7 +137,7 @@ var SingleTower = Class.create(Tower, {
 
 var StatusTower = Class.create(Tower, {
    initialize: function(x, y) {
-      var assetIndex = 'assets/towers/industrialStatus' + StatusUpgradeLevel + '.png';
+      var assetIndex = 'assets/towers/stoneStatus' + StatusUpgradeLevel + '.png';
       Tower.apply(this, [assetIndex,
          StatusTowerRange, StatusTowerPower, StatusTowerSpeed,
          StatusTowerBlast, StatusTowerCost, x, y, StatusUpgradeLevel]);
