@@ -21,7 +21,7 @@ var Enemy = Class.create(Sprite, {
 		this.maxSpeed = speed;
 		this.speed = speed;
 
-		
+		this.label;
       
       this.addEventListener(Event.ENTER_FRAME, this.walk);
       this.addEventListener(Event.ENTER_FRAME,  function(){
@@ -76,12 +76,16 @@ var Enemy = Class.create(Sprite, {
       var movement = (event.elapsed * 0.0009) * this.speed;
       switch (this.direction) {
          case UP   : this.y -= movement;
+                     if (this.label) this.label.y -= movement;
                      this.frame = this.anim[this.direction*20 + (this.age%20)]; break;
          case DOWN : this.y += movement; 
+                     if (this.label) this.label.y += movement;
                      this.frame = this.anim[this.direction*20 + (this.age%20)]; break;
          case LEFT : this.x -= movement; 
+                     if (this.label) this.label.x -= movement;
                      this.frame = this.anim[this.direction*20 + (this.age%20)]; break;
          case RIGHT: this.x += movement;
+                     if (this.label) this.label.x += movement;
                      this.frame = this.anim[this.direction*20 + (this.age%20)]; break;
       }
       // this.x = Math.ceil(this.x);
@@ -231,10 +235,21 @@ var ArticunoEnemy = Class.create(Enemy, {
          6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8, 7, 7, 7, 7, 7,//left
          3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 4, 4, 4, 4, 4, //up
          0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1];//down
+<<<<<<< HEAD
+=======
+        
+        articunoLabel = new Label("F");
+        articunoLabel.x = this.x;
+        articunoLabel.y = this.y;
+        //level.addChild(articunoLabel);
+        
+        this.label = articunoLabel;
+>>>>>>> 6cdd057f9089c05d5922430554a02ba81f2d8d90
 		
 		this.addEventListener(Event.ENTER_FRAME, this.walk);
-		
-		 
+		var label = new Label("F");
+		label.x = this.x;
+		label.y = this.y;
 	}
 });
 

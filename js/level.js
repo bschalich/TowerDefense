@@ -3,6 +3,19 @@ enchant();
 var EnemySpawnRateInWave = 60;
 var WaveSpawnRate = 500;
 
+var MapDataMinusOnes = [
+       [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+       [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+       [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+       [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+       [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+       [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+       [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+       [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+       [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+       [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
+   ];
+
 var Level = Class.create(Scene, {
    initialize: function(enemyListList, map) {
       Scene.apply(this);
@@ -13,6 +26,8 @@ var Level = Class.create(Scene, {
       // Add our group of enemies, for easy access later
       this.enemies = new Group();
       this.addChild(this.enemies);
+      this.enemyLabels = new Group();
+      this.addChild(this.enemyLabels);
       
       // Add our group of towers, for easy access later
       this.towers = new Group();
@@ -63,13 +78,25 @@ var Level = Class.create(Scene, {
    everyFrame: function(event) {
       this.attack(event.elapsed);
 		this.spawnEnemies();
+      this.checkLevelEnd();
+   },
+   
+   checkLevelEnd: function() {
+      if (this.enemyListList.length == 0
+         && this.currentWave.length == 0) {
+         if (this.enemies.childNodes.length == 0) {
+            Game.instance.replaceScene(MENU_SCREEN);
+         }
+      }
    },
 	
 	spawnEnemies: function() {
 		this.spawnFrame++;
 		if (this.spawnFrame % EnemySpawnRateInWave == 0
 			&& this.currentWave.length > 0) {
-			this.enemies.addChild(this.currentWave.pop());
+         var enemy = this.currentWave.pop();
+			this.enemies.addChild(enemy);
+         if (enemy.label) this.enemyLabels.addChild(enemy.label);
 		}
 		
 		if (this.spawnFrame % WaveSpawnRate == 0
@@ -121,6 +148,7 @@ var Level = Class.create(Scene, {
 				if (enemy.health <= 0) {
                console.log(enemy);
 					this.enemies.removeChild(enemy);
+               if (enemy.label) this.enemyLabels.removeChild(enemy.label);
 				}
 			}
       }
@@ -134,7 +162,7 @@ var Level1 = Class.create(Level, {
       map.image = Game.instance.assets['assets/tilesets/map1.png'];
       
       var mapData = [
-		  [ 33, 33, 33, 33, 33, 33, 33, 33, 33, 33],
+		    [ 33, 33, 33, 33, 33, 33, 33, 33, 33, 33],
           [ 49, 49, 49, 49, 49, 49, 49, 49, 49, 49],
           [ 36,100,100,100,100, 36, 36, 36, 36, 36],
           [ 36,100, 36, 36,100, 36, 36, 36, 36, 36],
@@ -148,18 +176,7 @@ var Level1 = Class.create(Level, {
       ];
       var mapCol = []
       
-      map.loadData(mapData,[
-          [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
-          [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
-          [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
-          [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
-          [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
-          [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
-          [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
-          [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
-          [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
-          [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
-      ]);
+      map.loadData(mapData, MapDataMinusOnes);
       
       // Set any 100 to a non-colliding tile.
       for (var i = 0; i < mapData.length; i++) {
@@ -181,6 +198,90 @@ var Level1 = Class.create(Level, {
           // [0,0,1,1,1,1,1,1,0,0],
           // [0,0,0,0,0,0,0,0,0,0]
       // ];
+   
+		var L1Enemies = [];
+		var L1W5 = [];
+         L1W5.push(new KabutoEnemy(map, 100));
+         L1W5.push(new OmanyteEnemy(map, 100));
+         L1W5.push(new BastidonEnemy(map, 100));
+         L1W5.push(new AerodactylEnemy(map, 100));
+         L1W5.push(new AronEnemy(map, 100));
+         L1W5.push(new AggronEnemy(map, 100));
+         L1W5.push(new RyhornEnemy(map, 100));
+         L1W5.push(new SkarmoryEnemy(map, 100));
+		   L1Enemies.push(L1W5);
+		var L1W4 = [];
+			L1W4.push(new ArticunoEnemy(map, 100));
+			L1W4.push(new ArticunoEnemy(map, 100));
+			L1W4.push(new ArticunoEnemy(map, 100));
+			L1W4.push(new ArticunoEnemy(map, 100));
+			L1Enemies.push(L1W4);
+		var L1W3 = [];
+			L1W3.push(new PorygonEnemy(map, 100));
+			L1W3.push(new PorygonEnemy(map, 100));
+			L1W3.push(new PorygonEnemy(map, 100));
+			L1W3.push(new PorygonEnemy(map, 100));
+			L1Enemies.push(L1W3);
+		var L1W2 = [];
+			L1W2.push(new GroudonEnemy(map, 100));
+			L1W2.push(new GroudonEnemy(map, 100));
+			L1W2.push(new GroudonEnemy(map, 100));
+			L1W2.push(new GroudonEnemy(map, 100));
+			L1Enemies.push(L1W2);
+		var L1W1 = [];
+			L1W1.push(new SuicuneEnemy(map, 100));
+			L1W1.push(new SuicuneEnemy(map, 100));
+			L1W1.push(new SuicuneEnemy(map, 100));
+			L1W1.push(new SuicuneEnemy(map, 100));
+			L1W1.push(new ArticunoEnemy(map, 100));
+			L1Enemies.push(L1W1);
+         
+		Level.apply(this, [L1Enemies, map]);
+      
+	 	
+	  
+      //var st = new SingleTower('assets/towers/industrialRanged1.png', 250, 195);
+      var stat1 = new AreaTower('assets/towers/industrialAoE1.png', 160, 275);
+      //var stat2 = new StatusTower('assets/towers/industrialStatus1.png', 370, 280);
+      
+      //this.towers.addChild(st);
+      this.towers.addChild(stat1);
+      //this.towers.addChild(stat2);
+	}
+});
+
+var Level2 = Class.create(Level, {
+	initialize: function() {
+	
+      var map = new Map(64, 64);
+      map.image = Game.instance.assets['assets/tilesets/map1.png'];
+      
+      var mapData = [
+		    [ 33, 33, 33, 33, 33, 33, 33, 33, 33, 33],
+          [ 49, 49, 49, 49, 49, 49, 49, 49, 49, 49],
+          [ 36, 36, 36,100,100,100, 36, 36, 36, 36],
+          [ 36, 36, 36,100, 36,100,100, 36, 36, 36],
+          [100,100, 36,100,100, 36,100, 36, 36, 36],
+          [ 36,100, 36, 36,100, 36,100,100,100,100],
+          [ 36,100,100,100,100, 36, 36, 36, 36, 36],
+          [ 17, 17, 17, 17, 17, 17, 17, 17, 17, 17],
+          [ 33, 33, 33, 33, 33, 33, 33, 33, 33, 33],
+          [ 71, 71, 71, 71, 71, 71, 71, 71, 71, 71],
+          [ 71, 71, 71, 71, 71, 71, 71, 71, 71, 71]
+      ];
+      var mapCol = []
+      
+      map.loadData(mapData, MapDataMinusOnes);
+      
+      // Set any 100 to a non-colliding tile.
+      for (var i = 0; i < mapData.length; i++) {
+         mapCol.push(new Array());
+         for (var j = 0; j < mapData[i].length; j++) {
+            mapCol[i][j] = (mapData[i][j] == 100 ? 0 : 1);
+         }
+      }
+      
+      map.collisionData = mapCol;
    
 		var L1Enemies = [];
 		var L1W5 = [];
