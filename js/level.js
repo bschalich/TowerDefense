@@ -84,6 +84,14 @@ var Level = Class.create(Scene, {
          createBuyHandler(this, SingleTower));
 		this.addChild(btn4);
 		//END ALLCAPS COMMENTS
+
+		var goldLabel = new Label("Gold: " + this.gold);
+		goldLabel.color = "rgb(255, 215, 0)";
+		goldLabel.x = 5;
+		goldLabel.y = 10;
+
+		this.goldL = goldLabel;
+		this.addChild(goldLabel);
       
       this.addEventListener(Event.ENTER_FRAME, this.everyFrame);
    },
@@ -92,6 +100,7 @@ var Level = Class.create(Scene, {
       this.attack(event.elapsed);
 		this.spawnEnemies();
       this.checkLevelEnd();
+      this.goldL.text = "Gold: " + this.gold;
    },
    
    checkLevelEnd: function() {
