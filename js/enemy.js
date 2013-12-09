@@ -21,7 +21,7 @@ var Enemy = Class.create(Sprite, {
 		this.maxSpeed = speed;
 		this.speed = speed;
 
-		
+		this.label;
       
       this.addEventListener(Event.ENTER_FRAME, this.walk);
       this.addEventListener(Event.ENTER_FRAME,  function(){
@@ -29,6 +29,10 @@ var Enemy = Class.create(Sprite, {
             this.speed += 1;
       });
 	},
+   
+   getEnemyLabel: function() {
+      return this.label;
+   },
    
    goLeftOrRight: function() {
       if (this.map.checkTile(this.x + 64, this.y) == this.pathTile)
@@ -231,7 +235,12 @@ var ArticunoEnemy = Class.create(Enemy, {
          6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8, 7, 7, 7, 7, 7,//left
          3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 4, 4, 4, 4, 4, //up
          0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1];//down
-      
+        
+        articunoLabel = new Label("F");
+        articunoLabel.x = this.x;
+        articunoLabel.y = this.y;
+        //level.addChild(articunoLabel);
+		
 		this.addEventListener(Event.ENTER_FRAME, this.walk);
 		var label = new Label("F");
 		label.x = this.x;

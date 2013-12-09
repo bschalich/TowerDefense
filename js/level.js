@@ -79,7 +79,8 @@ var Level = Class.create(Scene, {
 		this.spawnFrame++;
 		if (this.spawnFrame % EnemySpawnRateInWave == 0
 			&& this.currentWave.length > 0) {
-			this.enemies.addChild(this.currentWave.pop());
+         var enemy = this.currentWave.pop();
+			this.enemies.addChild(enemy);
 		}
 		
 		if (this.spawnFrame % WaveSpawnRate == 0
