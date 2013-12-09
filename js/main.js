@@ -5,6 +5,7 @@ var DEBUG = true;
 
 var PAUSE_SCREEN;
 var MENU_SCREEN;
+var PLAYER_GOLD = 0;
 
 window.onload = function() {
    var game = new Game(GAME_SIZE, GAME_SIZE);

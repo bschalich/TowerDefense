@@ -3,7 +3,11 @@ enchant();
 // Tower constants
 // Range in multiples of 64
 
-var AreaTowerRange = 1.3;
+var SingleTowerCost = 50;
+var StatusTowerCost = 100;
+var AreaTowerCost   = 75;
+
+var AreaTowerRange = 1.8;
 var AreaTowerPower = 5;
 var AreaTowerSpeed = 2;
 var AreaTowerBlast = 10;
@@ -23,7 +27,7 @@ var StatusUpgradeLevel = 1;
 var AreaUpgradeLevel   = 1;
 
 var Tower = Class.create(Sprite, {
-   initialize: function(assetIndex, range, power, speed, blast, x, y, upgrade) {
+   initialize: function(assetIndex, range, power, speed, blast, cost, x, y, upgrade) {
       Sprite.apply(this, [64, 64]);
       this.image = Game.instance.assets[assetIndex];
       this.frame = 0;
@@ -36,6 +40,7 @@ var Tower = Class.create(Sprite, {
       this.power = power * upgrade;
       this.speed = speed * upgrade;
       this.blast = blast * Math.ceil(upgrade / 2);
+      this.cost = cost;
       
       this.rangeCircle = new Sprite(64, 64);
       this.rangeCircle.image = Game.instance.assets['assets/towers/range.png'];
@@ -96,10 +101,11 @@ var Tower = Class.create(Sprite, {
 });
 
 var AreaTower = Class.create(Tower, {
-   initialize: function(assetIndex, x, y) {
+   initialize: function(x, y) {
+      var assetIndex = 'assets/towers/industrialAoE' + SingleUpgradeLevel + '.png';
       Tower.apply(this, [assetIndex,
          AreaTowerRange, AreaTowerPower, AreaTowerSpeed,
-         AreaTowerBlast, x, y, AreaUpgradeLevel]);
+         AreaTowerBlast, AreaTowerCost, x, y, AreaUpgradeLevel]);
    },
 	
 	attackArea: function(enemyList) {
@@ -112,10 +118,11 @@ var AreaTower = Class.create(Tower, {
 });
 
 var SingleTower = Class.create(Tower, {
-   initialize: function(assetIndex, x, y) {
+   initialize: function(x, y) {
+      var assetIndex = 'assets/towers/industrialRanged' + SingleUpgradeLevel + '.png';
       Tower.apply(this, [assetIndex,
          SingleTowerRange, SingleTowerPower, SingleTowerSpeed,
-         SingleTowerBlast, x, y, SingleUpgradeLevel]);
+         SingleTowerBlast, SingleTowerCost, x, y, SingleUpgradeLevel]);
    },
 	
 	attackSingle: function(enemyList) {
@@ -128,10 +135,11 @@ var SingleTower = Class.create(Tower, {
 });
 
 var StatusTower = Class.create(Tower, {
-   initialize: function(assetIndex, x, y) {
+   initialize: function(x, y) {
+      var assetIndex = 'assets/towers/industrialStatus' + SingleUpgradeLevel + '.png';
       Tower.apply(this, [assetIndex,
          StatusTowerRange, StatusTowerPower, StatusTowerSpeed,
-         StatusTowerBlast, x, y, StatusUpgradeLevel]);
+         StatusTowerBlast, StatusTowerCost, x, y, StatusUpgradeLevel]);
    },
 	
 	applyStatus: function(enemyList) {

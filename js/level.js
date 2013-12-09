@@ -16,6 +16,18 @@ var MapDataMinusOnes = [
        [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
    ];
 
+var createBuyHandler = function(level, TowerClass) {
+   return function(event) {
+      if (event.y < 64 * 8 && level.map.checkTile(event.x, event.y) == 36) {
+         var tower = new TowerClass(event.x, event.y);
+         if (tower.cost <= level.gold) {
+            level.gold -= tower.cost;
+            level.towers.addChild(tower);
+         }
+      }
+   };
+};
+
 var Level = Class.create(Scene, {
    initialize: function(enemyListList, map) {
       Scene.apply(this);
@@ -41,6 +53,8 @@ var Level = Class.create(Scene, {
 		this.currentWave = this.enemyListList.pop();
 		this.spawnFrame = 0;
       
+      this.gold = 200;
+      
       // UI ELEMENTS BEGIN //
       var res = new UIResource();
 		res.x = 0; res.y = 0;
@@ -51,24 +65,23 @@ var Level = Class.create(Scene, {
 		this.addChild(over);
 
 		//THESE BUTTONS WILL BE REPLACED WITH DANTE'S SYSTEM LATER. FOR NOW IDGAF
-		var pbtn = new PauseButton();
-		pbtn.x = 3; pbtn.y = 555;
+		var pbtn = new PauseButton(3, 555);
 		this.addChild(pbtn);
 	  
-		var btn1 = new UIButtons();
-		btn1.x = 375; btn1.y = 521;
+		var btn1 = new UIButtons(3, 380, 521,
+         createBuyHandler(this, SingleTower));
 		this.addChild(btn1);
 	  
-		var btn2 = new UIButtons();
-		btn2.x = 440; btn2.y = 521;
+		var btn2 = new UIButtons(15, 445, 521,
+         createBuyHandler(this, StatusTower));
 		this.addChild(btn2);
 	  
-		var btn3 = new UIButtons();
-		btn3.x = 505; btn3.y = 521;
+		var btn3 = new UIButtons(12, 510, 521,
+         createBuyHandler(this, AreaTower));
 		this.addChild(btn3);
 	  
-		var btn4 = new UIButtons();
-		btn4.x = 570; btn4.y = 521;
+		var btn4 = new UIButtons(0, 575, 521,
+         createBuyHandler(this, SingleTower));
 		this.addChild(btn4);
 		//END ALLCAPS COMMENTS
       
@@ -85,6 +98,7 @@ var Level = Class.create(Scene, {
       if (this.enemyListList.length == 0
          && this.currentWave.length == 0) {
          if (this.enemies.childNodes.length == 0) {
+            PLAYER_GOLD += this.gold;
             Game.instance.replaceScene(MENU_SCREEN);
          }
       }
@@ -148,6 +162,7 @@ var Level = Class.create(Scene, {
 				if (enemy.health <= 0) {
                console.log(enemy);
 					this.enemies.removeChild(enemy);
+               this.gold += enemy.gold;
                if (enemy.label) this.enemyLabels.removeChild(enemy.label);
 				}
 			}
@@ -237,16 +252,6 @@ var Level1 = Class.create(Level, {
 			L1Enemies.push(L1W1);
          
 		Level.apply(this, [L1Enemies, map]);
-      
-	 	
-	  
-      //var st = new SingleTower('assets/towers/industrialRanged1.png', 250, 195);
-      var stat1 = new AreaTower('assets/towers/industrialAoE1.png', 160, 275);
-      //var stat2 = new StatusTower('assets/towers/industrialStatus1.png', 370, 280);
-      
-      //this.towers.addChild(st);
-      this.towers.addChild(stat1);
-      //this.towers.addChild(stat2);
 	}
 });
 
@@ -320,15 +325,5 @@ var Level2 = Class.create(Level, {
 			L1Enemies.push(L1W1);
          
 		Level.apply(this, [L1Enemies, map]);
-      
-	 	
-	  
-      //var st = new SingleTower('assets/towers/industrialRanged1.png', 250, 195);
-      var stat1 = new AreaTower('assets/towers/industrialAoE1.png', 160, 275);
-      //var stat2 = new StatusTower('assets/towers/industrialStatus1.png', 370, 280);
-      
-      //this.towers.addChild(st);
-      this.towers.addChild(stat1);
-      //this.towers.addChild(stat2);
 	}
 });

@@ -6,7 +6,7 @@ var UP    = 2;
 var DOWN  = 3;
 
 var Enemy = Class.create(Sprite, {
-	initialize: function(assetIndex, health, speed, map, pathTile) {
+	initialize: function(assetIndex, health, speed, map, pathTile, gold) {
 		Sprite.apply(this, [64, 64]);
 		this.image = Game.instance.assets[assetIndex];
 		this.frame = 0;
@@ -20,6 +20,9 @@ var Enemy = Class.create(Sprite, {
 		this.health = health;
 		this.maxSpeed = speed;
 		this.speed = speed;
+      
+      if (!gold) gold = 50;
+      this.gold = gold;
 
 		this.label;
       
