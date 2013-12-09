@@ -91,6 +91,19 @@ var Level = Class.create(Scene, {
 
 		this.goldL = goldLabel;
 		this.addChild(goldLabel);
+
+      this.myLife = new Array();
+      for(var g = 0; g < 15 ; g++){
+		   var life = new UILives();
+		   life.x = 125 + g*20;
+		   life.y = 1;
+
+         this.addChild(life);
+		   this.myLife[g] = life;
+		   
+      }
+      
+      this.livesLost = 0;
       
       this.addEventListener(Event.ENTER_FRAME, this.everyFrame);
    },
@@ -108,6 +121,19 @@ var Level = Class.create(Scene, {
          if (this.enemies.childNodes.length == 0) {
             PLAYER_GOLD += this.gold;
             Game.instance.replaceScene(MENU_SCREEN);
+         }
+      }
+
+      for (var j = 0; j < this.enemies.childNodes.length; j++) {
+         var enemy = this.enemies.childNodes[j];
+
+         if (enemy.x < 0 || enemy.x > 10 * 64 || enemy.y < 0 || enemy.y > 8 * 64) {
+            if(enemy.x > 10 * 64 || enemy.y > 8 * 64)
+            {
+                  this.removeChild(this.myLife[14-this.livesLost]);
+                  this.livesLost += 1;
+            }
+            this.enemies.removeChild(enemy);
          }
       }
    },
@@ -143,11 +169,7 @@ var Level = Class.create(Scene, {
          for (var j = 0; j < this.enemies.childNodes.length; j++) {
             // Command the tower to attack the enemy
             var enemy = this.enemies.childNodes[j];
-            
-            if (enemy.x < 0 || enemy.x > 10 * 64 || enemy.y < 0 || enemy.y > 8 * 64) {
-               this.enemies.removeChild(enemy);
-               //this.takeDamage();
-            }
+
             
             // If there are fewer enemies than we can target, break
             if (numAttacks == tower.blast) break;

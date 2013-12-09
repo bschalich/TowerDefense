@@ -80,6 +80,7 @@ window.onload = function() {
 'assets/bullet/dreamcatcher.png',
 'assets/bullet/rock.png',
 //'assets/bullet/spear.png',
+'assets/ui/life.png',
 'assets/button_pressed.wav');
    
    game.fps = 30;

@@ -203,6 +203,7 @@ var UIPause = Class.create(Sprite, {
 	}
 });
 
+
 var UIButtons = Class.create(Button, {
 	initialize: function(frame, x, y, touchHandler) {
 		Button.apply(this, ['assets/ui/UI_Buttons.png', x, y, 50, 50]);
@@ -228,14 +229,20 @@ var UIResource = Class.create(Sprite, {
 		this.image = Game.instance.assets['assets/ui/Resource.png'];
 		this.frame = 0;
 	}
-	
+});
 	//Lives label
+	var UILives = Class.create(Sprite, {
+	initialize: function() {
+		Sprite.apply(this, [16, 16]);
+		this.image = Game.instance.assets['assets/ui/life.png'];
+	}
+});
 	
-	//Gold label
+	//Gold label -HANDLED!
 	
 	//Current Wave label
 	
 	//Spawn next wave button
 	
 	//Misc?
-});
+
