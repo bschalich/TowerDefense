@@ -151,7 +151,7 @@ var BastidonEnemy = Class.create(Enemy, {
 
 var AerodactylEnemy = Class.create(Enemy, {
 	initialize: function(map, pathTile) {
-		Enemy.apply(this, ['assets/enemies/aerodactylSheet.png', 45, 30, map, pathTile]);
+		Enemy.apply(this, ['assets/enemies/aerodactylSheet.png', 30, 30, map, pathTile]);
 
       this.anim = [
          9, 9, 9, 9, 9,10,10,10,10,10,11,11,11,11,11,10,10,10,10,10, //right
@@ -195,7 +195,7 @@ var AggronEnemy = Class.create(Enemy, {
 
 var SkarmoryEnemy = Class.create(Enemy, {
 	initialize: function(map, pathTile) {
-		Enemy.apply(this, ['assets/enemies/skarmorySheet.png', 65, 40, map, pathTile]);
+		Enemy.apply(this, ['assets/enemies/skarmorySheet.png', 30, 40, map, pathTile]);
 
       this.anim = [
          9, 9, 9, 9, 9,10,10,10,10,10,11,11,11,11,11,10,10,10,10,10, //right
@@ -239,7 +239,7 @@ var GroudonEnemy = Class.create(Enemy, {
 
 var ArticunoEnemy = Class.create(Enemy, {
 	initialize: function(map, pathTile) {
-		Enemy.apply(this, ['assets/enemies/articunoSheet.png', 50, 60, map, pathTile]);
+		Enemy.apply(this, ['assets/enemies/articunoSheet.png', 50, 30, map, pathTile]);
 
       this.anim = [
          9, 9, 9, 9, 9,10,10,10,10,10,11,11,11,11,11,10,10,10,10,10, //right
@@ -258,7 +258,7 @@ var ArticunoEnemy = Class.create(Enemy, {
 
 var PorygonEnemy = Class.create(Enemy, {
 	initialize: function(map, pathTile) {
-		Enemy.apply(this, ['assets/enemies/porygonSheet.png', 35, 30, map, pathTile]);
+		Enemy.apply(this, ['assets/enemies/porygonSheet.png', 50, 30, map, pathTile]);
 
       this.anim = [
          9, 9, 9, 9, 9,10,10,10,10,10,11,11,11,11,11,10,10,10,10,10, //right

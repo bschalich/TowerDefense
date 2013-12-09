@@ -206,20 +206,70 @@ var UIPause = Class.create(Sprite, {
 
 var UIButtons = Class.create(Button, {
 	initialize: function(frame, x, y, touchHandler) {
-		Button.apply(this, ['assets/ui/UI_Buttons.png', x, y, 50, 50]);
+		Button.apply(this, ['assets/ui/UI_Buttons.png', x, y, 65, 50]);
 		this.frame = frame;
 		
+      this.slowAbility = new Label("ABILITY: Slows all enemies in range.");
+      this.slowAbility.x = 150; this.slowAbility.y = 513;  
+
+      this.aoeAbility = new Label("ABILITY: Attacks multiple enemies.");
+      this.aoeAbility.x = 150; this.aoeAbility.y = 513;
+
+      switch(frame)
+      {
+         case SINGLE:
+           var tower = new SingleTower(x, y);
+           this.cost = 50;
+           break;
+         case AREA:
+           var tower = new AreaTower(x, y);
+           this.cost = 75;
+           break;
+         case STATUS:
+           var tower = new StatusTower(x, y);
+           this.cost = 100;
+           break;
+         default:
+            break;
+      }
+
+      this.cLabel = new Label("Cost: " + this.cost);
+      this.cLabel.color = "rgb(255, 215, 0)";
+      this.cLabel.x = 80; this.cLabel.y = 513; 
+
+      //Create a new label for range, cost, damage, and speed.
+      //Also talk about AoE shits or slows.
+
+
 		this.addEventListener(Event.TOUCH_START, this.clickOn);
 		this.addEventListener(Event.TOUCH_END, this.clickOff);
       this.addEventListener(Event.TOUCH_END, touchHandler);
 	},
 	
 	clickOn: function() {
-		this.frame += 6;
+      this.frame += 6;
+
+      this.parentNode.addChild(this.cLabel);
+      
+      if(this.frame == AREA + 6) {
+         this.parentNode.addChild(this.aoeAbility);
+      }
+      if(this.frame == STATUS + 6) {
+         this.parentNode.addChild(this.slowAbility);
+      }
 	},
 	
 	clickOff: function(){
 		this.frame -= 6;
+
+      this.parentNode.removeChild(this.cLabel);
+      
+      if(this.frame == AREA) {
+         this.parentNode.removeChild(this.aoeAbility);
+      }
+      if(this.frame == STATUS) {
+         this.parentNode.removeChild(this.slowAbility);
+      }
 	}
 });
 
@@ -236,10 +286,7 @@ var UIResource = Class.create(Sprite, {
 		Sprite.apply(this, [16, 16]);
 		this.image = Game.instance.assets['assets/ui/life.png'];
 	}
-});
-	
-	//Gold label -HANDLED!
-	
+});	
 	//Current Wave label
 	
 	//Spawn next wave button

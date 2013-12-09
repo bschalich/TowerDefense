@@ -120,7 +120,6 @@ var AreaTower = Class.create(Tower, {
 var SingleTower = Class.create(Tower, {
    initialize: function(x, y) {
       var assetIndex = 'assets/towers/stoneRanged' + SingleUpgradeLevel + '.png';
-      console.log(assetIndex);
       Tower.apply(this, [assetIndex,
          SingleTowerRange, SingleTowerPower, SingleTowerSpeed,
          SingleTowerBlast, SingleTowerCost, x, y, SingleUpgradeLevel]);

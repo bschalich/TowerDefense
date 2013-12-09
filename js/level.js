@@ -1,7 +1,11 @@
 enchant();
 
 var EnemySpawnRateInWave = 60;
-var WaveSpawnRate = 1000;
+var WaveSpawnRate = 500;
+
+var STATUS = 15;
+var SINGLE = 3;
+var AREA = 12;
 
 var MapDataMinusOnes = [
        [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
@@ -29,11 +33,13 @@ var createBuyHandler = function(level, TowerClass) {
 };
 
 var Level = Class.create(Scene, {
-   initialize: function(enemyListList, map, healthScale) {
+   initialize: function(enemyListList, map, healthScale, currLevel) {
       Scene.apply(this);
       
       this.map = map;
       this.addChild(map);
+
+      this.currLevel = currLevel;
       
       // Add our group of enemies, for easy access later
       this.enemies = new Group();
@@ -64,26 +70,24 @@ var Level = Class.create(Scene, {
 		over.x = 0; over.y = 506;
 		this.buttons.addChild(over);
 
-		//THESE BUTTONS WILL BE REPLACED WITH DANTE'S SYSTEM LATER. FOR NOW IDGAF
 		var pbtn = new PauseButton(3, 555);
 		this.buttons.addChild(pbtn);
 	  
-		var singleButton = new UIButtons(3, 380, 521,
+		var btn1 = new UIButtons(SINGLE, 375, 521,
          createBuyHandler(this, SingleTower));
-		this.buttons.addChild(singleButton);
+		this.buttons.addChild(btn1);
 	  
-		var statusButton = new UIButtons(15, 445, 521,
-         createBuyHandler(this, StatusTower));
-		this.buttons.addChild(statusButton);
-	  
-		var areaButton = new UIButtons(12, 510, 521,
+		var btn2 = new UIButtons(AREA, 440, 521,
          createBuyHandler(this, AreaTower));
-		this.buttons.addChild(areaButton);
+		this.buttons.addChild(btn2);
 	  
-		var btn4 = new UIButtons(0, 575, 521,
+		var btn3 = new UIButtons(STATUS, 505, 521,
+         createBuyHandler(this, StatusTower));
+		this.buttons.addChild(btn3);
+	  
+		var btn4 = new UIButtons(0, 570, 521,
          createBuyHandler(this, SingleTower));
 		this.buttons.addChild(btn4);
-		//END ALLCAPS COMMENTS
 
 		var goldLabel = new Label("Rupiis: " + this.gold);
 		goldLabel.color = "rgb(255, 215, 0)";
@@ -113,6 +117,7 @@ var Level = Class.create(Scene, {
       this.attack(event.elapsed);
 		this.spawnEnemies();
       this.checkLevelEnd();
+      this.gameOver();
       this.goldL.text = "Rupiis: " + this.gold;
    },
    
@@ -131,14 +136,26 @@ var Level = Class.create(Scene, {
          if (enemy.x < 0 || enemy.x > 10 * 64 || enemy.y < 0 || enemy.y > 8 * 64) {
             if(enemy.x > 10 * 64 || enemy.y > 8 * 64)
             {
-                  this.removeChild(this.myLife[14-this.livesLost]);
-                  this.livesLost += 1;
+                  this.removeChild(this.myLife[PLAYER_HEALTH]);
+                  PLAYER_HEALTH--;
             }
             this.enemies.removeChild(enemy);
          }
       }
    },
 	
+   gameOver: function() {
+      if (PLAYER_HEALTH < 0) {
+         PLAYER_HEALTH = 14;
+         Game.instance.replaceScene(new Game.instance.currentScene.currLevel()); 
+         
+         //Select retry
+
+     
+         //Select quit.
+      }
+   },
+
 	spawnEnemies: function() {
 		this.spawnFrame++;
 		if (this.spawnFrame % EnemySpawnRateInWave == 0
@@ -188,11 +205,9 @@ var Level = Class.create(Scene, {
 
 			
 			for (var i = 0; i < enemyList.length; i++) {
-            console.log("Level: Dead enemies");
             enemy = enemyList[i];
 				// If the enemy died, remove it
 				if (enemy.health <= 0) {
-               console.log(enemy);
 					this.enemies.removeChild(enemy);
                this.gold += enemy.gold;
                if (enemy.label) this.enemyLabels.removeChild(enemy.label);
@@ -335,7 +350,7 @@ var Level1 = Class.create(Level, {
 			L1W1.push(new KabutoEnemy(map, 100));
 			L1Enemies.push(L1W1);
          
-		Level.apply(this, [L1Enemies, map, healthScale]);
+		Level.apply(this, [L1Enemies, map, healthScale, Level1]);
 	}
 });
 
@@ -460,13 +475,13 @@ var Level2 = Class.create(Level, {
 			L1W1.push(new AronEnemy(map, 100));
 			L1W1.push(new AronEnemy(map, 100));
 			L1Enemies.push(L1W1);
-         
-		Level.apply(this, [L1Enemies, map, healthScale]);
+
+		Level.apply(this, [L1Enemies, map, healthScale, Level2]);
 	}
 });
 
 var Level3 = Class.create(Level, {
-	initialize: function() {
+	initialize: function(healthScale) {
 	
       var map = new Map(64, 64);
 
@@ -588,7 +603,7 @@ var Level3 = Class.create(Level, {
 			L1W1.push(new PorygonEnemy(map, 100));
 			L1Enemies.push(L1W1);
          
-		Level.apply(this, [L1Enemies, map]);
+		Level.apply(this, [L1Enemies, map, healthScale, Level3]);
 	}
 });
 
