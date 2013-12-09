@@ -81,6 +81,13 @@ window.onload = function() {
 'assets/bullet/rock.png',
 //'assets/bullet/spear.png',
 'assets/ui/life.png',
+'assets/narrative/title1.png',
+'assets/narrative/title2.png',
+'assets/narrative/title3.png',
+'assets/narrative/title4.png',
+'assets/narrative/title5.png',
+'assets/narrative/title6.png',
+'assets/narrative/title7.png',
 'assets/button_pressed.wav');
    
    game.fps = 30;
@@ -89,6 +96,14 @@ window.onload = function() {
       MENU_SCREEN = new MenuScreen();
       game.pushScene(new Level2('assets/level1.png'));
       game.pushScene(new Level1('assets/level1.png'));
+      game.pushScene(new CutScene(7));
+      game.pushScene(new CutScene(6));
+      game.pushScene(new CutScene(5));
+      game.pushScene(new CutScene(4));
+      game.pushScene(new CutScene(3));
+      game.pushScene(new CutScene(2));
+      game.pushScene(new CutScene(1));
+      
    };
    
    game.start();

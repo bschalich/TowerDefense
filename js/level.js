@@ -357,3 +357,19 @@ var Level2 = Class.create(Level, {
 		Level.apply(this, [L1Enemies, map]);
 	}
 });
+
+var CutScene = Class.create(Scene, {
+   initialize: function(offset) {
+      Scene.apply(this);
+
+      var bg = new Sprite(640,640);
+      bg.image = Game.instance.assets['assets/narrative/title' + offset + '.png'];
+      this.addChild(bg);
+
+      this.addEventListener(Event.TOUCH_END, function(){
+          Game.instance.popScene();
+      });
+	}
+});
+
+      
