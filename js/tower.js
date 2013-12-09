@@ -3,7 +3,7 @@ enchant();
 // Tower constants
 // Range in multiples of 64
 
-var AreaTowerRange = 1;
+var AreaTowerRange = 1.3;
 var AreaTowerPower = 5;
 var AreaTowerSpeed = 2;
 var AreaTowerBlast = 10;
@@ -101,7 +101,8 @@ var AreaTower = Class.create(Tower, {
 	attackArea: function(enemyList) {
 		for (var i = 0; i < enemyList.length; i++) {
 			var enemy = enemyList[i];
-			enemy.health -= this.power;
+			var blt = new AreaShoot('assets/enemies/groudonSheet.png', this.x, this.y, enemy.x, enemy.y, enemy, this.power);
+         this.parentNode.parentNode.addChild(blt);
 		}
 	}
 });
@@ -116,9 +117,8 @@ var SingleTower = Class.create(Tower, {
 	attackSingle: function(enemyList) {
       //console.log(enemyList[0]);
 		if (enemyList.length > 0){
-		   var blt = new Shoot('assets/enemies/groudonSheet.png', this.x, this.y, enemyList[0].x, enemyList[0].y);
+		   var blt = new SingleShoot('assets/enemies/groudonSheet.png', this.x, this.y, enemyList[0].x, enemyList[0].y, enemyList[0], this.power);
          this.parentNode.parentNode.addChild(blt);
-			enemyList[0].health -= this.power;
 		}
 	}
 });
@@ -132,8 +132,9 @@ var StatusTower = Class.create(Tower, {
 	
 	applyStatus: function(enemyList) {
 		for (var i = 0; i < enemyList.length; i++) {
-			var enemy = enemyList[i];
-			enemy.speed -= this.power;
+         var enemy = enemyList[i];
+	      var blt = new StatusShoot('assets/enemies/groudonSheet.png', this.x, this.y, enemy.x, enemy.y, enemy, this.power);
+         this.parentNode.parentNode.addChild(blt);
 		}
 	}
 });

@@ -18,9 +18,16 @@ var Enemy = Class.create(Sprite, {
       this.pathTile = pathTile;
 		
 		this.health = health;
+		this.maxSpeed = speed;
 		this.speed = speed;
+
+		
       
       this.addEventListener(Event.ENTER_FRAME, this.walk);
+      this.addEventListener(Event.ENTER_FRAME,  function(){
+         if(this.speed < this.maxSpeed)
+            this.speed += 1;
+      });
 	},
    
    goLeftOrRight: function() {
@@ -79,6 +86,7 @@ var Enemy = Class.create(Sprite, {
       }
       // this.x = Math.ceil(this.x);
       // this.y = Math.ceil(this.y);
+
 	}
 });
 

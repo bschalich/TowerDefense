@@ -52,6 +52,7 @@ var Level = Class.create(Scene, {
    // but that would introduce several additional event handlers triggering every frame.
    attack: function(elapsed) {
       for (var i = 0; i < this.towers.childNodes.length; i++) {
+
          
          // For each tower, attack some enemies
          var tower = this.towers.childNodes[i];
@@ -72,7 +73,7 @@ var Level = Class.create(Scene, {
             if (numAttacks == tower.blast) break;
             
             if (!tower.inRange(enemy)) continue;
-            
+  
             // If we are in range, attack and increment our attack count
             numAttacks++;
             enemyList.push(enemy);
@@ -218,8 +219,12 @@ var Level1 = Class.create(Level, {
 		this.addChild(btn4);
 		//END ALLCAPS COMMENTS
 	  
-      var st = new SingleTower('assets/towers/industrialRanged1.png', 250, 195);
+      //var st = new SingleTower('assets/towers/industrialRanged1.png', 250, 195);
+      var stat1 = new AreaTower('assets/towers/industrialAoE1.png', 160, 275);
+      //var stat2 = new StatusTower('assets/towers/industrialStatus1.png', 370, 280);
       
-      this.towers.addChild(st);
+      //this.towers.addChild(st);
+      this.towers.addChild(stat1);
+      //this.towers.addChild(stat2);
 	}
 });

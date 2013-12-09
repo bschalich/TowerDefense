@@ -27,6 +27,23 @@ var SingleTowerBuy = Class.create(Button, {
    }
 });
 
+/*var StatusTowerBuy = Class.create(Button, {
+   initialize: function() {
+      Button.apply(this, ['assets/ui/UI_Buttons.png', 320, 600]);
+      
+      this.tower = null;
+      
+      this.addEventListener(Event.TOUCH_END, this.placeTower);
+   },
+   
+   placeTower: function(event) {
+      if (event.y < 64 * 8
+         && this.parentNode.parentNode.map.checkTile(event.x, event.y) == 36) {
+         this.parentNode.parentNode.towers.addChild(new StatusTower('assets/towers/industrialStatus1.png', event.x, event.y));
+      }
+   }
+});*/
+
 
 
 var PauseButton = Class.create(Button, {
