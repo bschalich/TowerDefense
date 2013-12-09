@@ -88,6 +88,8 @@ window.onload = function() {
 'assets/narrative/title5.png',
 'assets/narrative/title6.png',
 'assets/narrative/title7.png',
+//'assets/background.wav',
+'assets/getItem.wav',
 'assets/button_pressed.wav');
    
    game.fps = 30;

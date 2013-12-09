@@ -365,10 +365,15 @@ var CutScene = Class.create(Scene, {
       var bg = new Sprite(640,640);
       bg.image = Game.instance.assets['assets/narrative/title' + offset + '.png'];
       this.addChild(bg);
+      var se = Game.instance.assets['assets/getItem.wav'];
 
       this.addEventListener(Event.TOUCH_END, function(){
+          if(offset == 6)
+            se.play();
           Game.instance.popScene();
       });
+
+      
 	}
 });
 
