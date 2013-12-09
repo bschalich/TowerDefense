@@ -604,8 +604,20 @@ var CutScene = Class.create(Scene, {
             se.play();
           Game.instance.popScene();
       });
+	},
+});
 
-      
+	var Tutorial = Class.create(Scene, {
+   initialize: function() {
+      Scene.apply(this);
+
+      var bg = new Sprite(640,640);
+      bg.image = Game.instance.assets['assets/ui/TutorialScreen.png'];
+      this.addChild(bg);
+
+      this.addEventListener(Event.TOUCH_END, function(){
+          Game.instance.popScene();
+      });
 	}
 });
 

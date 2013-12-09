@@ -68,7 +68,7 @@ window.onload = function() {
 'assets/towers/stoneAoE1.png',
 'assets/towers/stoneAoE2.png',
 'assets/towers/stoneAoE3.png',
-'assets/towers/stoneStatus1.png',
+//'assets/towers/stoneStatus1.png',
 'assets/towers/stoneStatus2.png',
 'assets/towers/stoneStatus3.png',
 'assets/bullet/arrow.png',
@@ -90,6 +90,7 @@ window.onload = function() {
 'assets/narrative/title7.png',
 //'assets/background.wav',
 'assets/getItem.wav',
+'assets/ui/TutorialScreen.png',
 'assets/button_pressed.wav');
    
    game.fps = 30;
@@ -99,6 +100,7 @@ window.onload = function() {
       game.pushScene(new Level3('assets/level1.png'));
       game.pushScene(new Level2('assets/level1.png'));
       game.pushScene(new Level1('assets/level1.png'));
+      game.pushScene(new Tutorial());
       game.pushScene(new CutScene(7));
       game.pushScene(new CutScene(6));
       game.pushScene(new CutScene(5));
