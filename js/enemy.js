@@ -233,14 +233,13 @@ var ArticunoEnemy = Class.create(Enemy, {
          0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1];//down
       
 		this.addEventListener(Event.ENTER_FRAME, this.walk);
-		
-		//this.addEventListener(Event.TOUCH_START, this.showType);
+		this.addEventListener(Event.TOUCH_START, this.showType);
 	}
 });
 
 /*showType: function(event){
 	Label label = new Label("F");
-	this.parentNode.parentNode.addChild(label);
+	this.parentNode.addChild(label);
 }*/
 
 var PorygonEnemy = Class.create(Enemy, {
