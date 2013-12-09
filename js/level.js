@@ -84,7 +84,7 @@ var Level = Class.create(Scene, {
 		this.buttons.addChild(btn4);
 		//END ALLCAPS COMMENTS
 
-		var goldLabel = new Label("Gold: " + this.gold);
+		var goldLabel = new Label("Rupiis: " + this.gold);
 		goldLabel.color = "rgb(255, 215, 0)";
 		goldLabel.x = 5;
 		goldLabel.y = 10;
@@ -112,7 +112,7 @@ var Level = Class.create(Scene, {
       this.attack(event.elapsed);
 		this.spawnEnemies();
       this.checkLevelEnd();
-      this.goldL.text = "Gold: " + this.gold;
+      this.goldL.text = "Rupiis: " + this.gold;
    },
    
    checkLevelEnd: function() {
