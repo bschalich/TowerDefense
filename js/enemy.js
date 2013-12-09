@@ -233,7 +233,7 @@ var ArticunoEnemy = Class.create(Enemy, {
          0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1];//down
       
 		this.addEventListener(Event.ENTER_FRAME, this.walk);
-		Label label = new Label("F");
+		var label = new Label("F");
 		label.x = this.x;
 		label.y = this.y;
 	}

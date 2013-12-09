@@ -3,6 +3,9 @@ enchant();
 var GAME_SIZE = 640;
 var DEBUG = true;
 
+var PAUSE_SCREEN;
+var MENU_SCREEN;
+
 window.onload = function() {
    var game = new Game(GAME_SIZE, GAME_SIZE);
    
@@ -56,6 +59,7 @@ window.onload = function() {
    
    game.fps = 30;
    game.onload = function() {
+      PAUSE_SCREEN = new PauseScreen();
       game.pushScene(new Level1('assets/level1.png'));
    };
    

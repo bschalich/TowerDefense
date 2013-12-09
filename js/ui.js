@@ -1,5 +1,3 @@
-
-
 var Button = Class.create(Sprite, {
    initialize: function(assetIndex, x, y) {
       Sprite.apply(this, [50, 50]);
@@ -78,7 +76,7 @@ var PauseButton = Class.create(Button, {
 		// rButt.x = 268; rButt.y = 358;
 		// this.parentNode.addChild(rButt);
       
-      Game.instance.pushScene(new PauseScreen());
+      Game.instance.pushScene(PAUSE_SCREEN);
 	}
 });
 
