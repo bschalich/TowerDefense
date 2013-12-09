@@ -47,7 +47,6 @@ var Level = Class.create(Scene, {
       
       this.buttons = new Group();
       this.addChild(this.buttons);
-      this.buttons.addChild(new SingleTowerBuy());
 		
 		this.enemyListList = enemyListList;
 		this.currentWave = this.enemyListList.pop();
@@ -62,27 +61,27 @@ var Level = Class.create(Scene, {
 	  
 		var over = new UIOverlay();
 		over.x = 0; over.y = 506;
-		this.addChild(over);
+		this.buttons.addChild(over);
 
 		//THESE BUTTONS WILL BE REPLACED WITH DANTE'S SYSTEM LATER. FOR NOW IDGAF
 		var pbtn = new PauseButton(3, 555);
-		this.addChild(pbtn);
+		this.buttons.addChild(pbtn);
 	  
 		var btn1 = new UIButtons(3, 380, 521,
          createBuyHandler(this, SingleTower));
-		this.addChild(btn1);
+		this.buttons.addChild(btn1);
 	  
 		var btn2 = new UIButtons(15, 445, 521,
          createBuyHandler(this, StatusTower));
-		this.addChild(btn2);
+		this.buttons.addChild(btn2);
 	  
 		var btn3 = new UIButtons(12, 510, 521,
          createBuyHandler(this, AreaTower));
-		this.addChild(btn3);
+		this.buttons.addChild(btn3);
 	  
 		var btn4 = new UIButtons(0, 575, 521,
          createBuyHandler(this, SingleTower));
-		this.addChild(btn4);
+		this.buttons.addChild(btn4);
 		//END ALLCAPS COMMENTS
       
       this.addEventListener(Event.ENTER_FRAME, this.everyFrame);

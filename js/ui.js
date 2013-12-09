@@ -69,6 +69,8 @@ var MenuScreen = Class.create(Scene, {
       this.AreaTowerLevel   = 1;
       this.StatusTowerLevel = 1;
       
+      this.addChild(new NextLevel());
+      
       // Add UI Elements //   
    },
    
@@ -128,6 +130,12 @@ var MenuScreen = Class.create(Scene, {
 var NextLevel = Class.create(Button, {
    initialize: function() {
       Button.apply(this, ['assets/ui/Resume.png', 102, 29]);
+      
+      this.addEventListener(Event.TOUCH_END, this.nextLevel);
+   },
+   
+   nextLevel: function(event) {
+      Game.instance.popScene();
    }
 });
 
