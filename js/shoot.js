@@ -1,7 +1,7 @@
 enchant();
 
 var Shoot = Class.create(Sprite, {
-   initialize: function(assetIndex, x, y, toX, toY) {
+   initialize: function(assetIndex, x, y, toX, toY, enemy) {
       Sprite.apply(this, [32, 32]);
       this.image = Game.instance.assets[assetIndex];
 		this.frame = 6;
@@ -157,6 +157,21 @@ var Shoot = Class.create(Sprite, {
          */
       });
    }
+});
+
+var StatusShoot = Class.create(Shoot, {
+	initialize: function(assetIndex, x, y, toX, toY, enemy, power) {
+		Shoot.apply(this, [assetIndex, x, y, toX, toY, enemy, power]);
+
+      this.addEventListener(Event.ENTER_FRAME, function(){
+         //Remove bullet and slow
+         if(this.y == this.toY && this.x == this.toX){
+            if(enemy.speed >  enemy.maxSpeed - enemy.speed)
+               enemy.speed -= power;
+            console.log(power + " " + enemy.maxSpeed + " " + enemy.speed);
+         }
+	   });
+	}
 });
 
 

@@ -9,7 +9,7 @@ var AreaTowerSpeed = 2;
 var AreaTowerBlast = 10;
 
 var StatusTowerRange = 1.5;
-var StatusTowerPower = 10;
+var StatusTowerPower = 20;
 var StatusTowerSpeed = 0.2;
 var StatusTowerBlast = 10;
 
@@ -116,7 +116,7 @@ var SingleTower = Class.create(Tower, {
 	attackSingle: function(enemyList) {
       //console.log(enemyList[0]);
 		if (enemyList.length > 0){
-		   var blt = new Shoot('assets/enemies/groudonSheet.png', this.x, this.y, enemyList[0].x, enemyList[0].y);
+		   var blt = new Shoot('assets/enemies/groudonSheet.png', this.x, this.y, enemyList[0].x, enemyList[0].y, enemyList[0]);
          this.parentNode.parentNode.addChild(blt);
 			enemyList[0].health -= this.power;
 		}
@@ -132,8 +132,10 @@ var StatusTower = Class.create(Tower, {
 	
 	applyStatus: function(enemyList) {
 		for (var i = 0; i < enemyList.length; i++) {
-			var enemy = enemyList[i];
-			enemy.speed -= this.power;
+         var enemy = enemyList[i];
+		
+	      var blt = new StatusShoot('assets/enemies/groudonSheet.png', this.x, this.y, enemy.x, enemy.y, enemy, this.power);
+         this.parentNode.parentNode.addChild(blt);
 		}
 	}
 });
