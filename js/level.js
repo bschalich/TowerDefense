@@ -220,7 +220,7 @@ var Level1 = Class.create(Level, {
 		//END ALLCAPS COMMENTS
 	  
       //var st = new SingleTower('assets/towers/industrialRanged1.png', 250, 195);
-      var stat1 = new StatusTower('assets/towers/industrialStatus1.png', 160, 275);
+      var stat1 = new AreaTower('assets/towers/industrialAoE1.png', 160, 275);
       //var stat2 = new StatusTower('assets/towers/industrialStatus1.png', 370, 280);
       
       //this.towers.addChild(st);

@@ -168,8 +168,31 @@ var StatusShoot = Class.create(Shoot, {
          if(this.y == this.toY && this.x == this.toX){
             if(enemy.speed >  enemy.maxSpeed - enemy.speed)
                enemy.speed -= power;
-            console.log(power + " " + enemy.maxSpeed + " " + enemy.speed);
          }
+	   });
+	}
+});
+
+var AreaShoot = Class.create(Shoot, {
+	initialize: function(assetIndex, x, y, toX, toY, enemy, power) {
+		Shoot.apply(this, [assetIndex, x, y, toX, toY, enemy, power]);
+
+      this.addEventListener(Event.ENTER_FRAME, function(){
+         //Remove bullet and slow
+         if(this.y == this.toY && this.x == this.toX)
+            enemy.health -= power;
+	   });
+	}
+});
+
+var SingleShoot = Class.create(Shoot, {
+	initialize: function(assetIndex, x, y, toX, toY, enemy, power) {
+		Shoot.apply(this, [assetIndex, x, y, toX, toY, enemy, power]);
+
+      this.addEventListener(Event.ENTER_FRAME, function(){
+         //Remove bullet and add dmg
+         if(this.y == this.toY && this.x == this.toX)
+            enemy.health -= power;
 	   });
 	}
 });
