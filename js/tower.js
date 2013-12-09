@@ -18,8 +18,12 @@ var SingleTowerPower = 8;
 var SingleTowerSpeed = 1;
 var SingleTowerBlast = 1;
 
+var SingleUpgradeLevel = 1;
+var StatusUpgradeLevel = 1;
+var AreaUpgradeLevel   = 1;
+
 var Tower = Class.create(Sprite, {
-   initialize: function(assetIndex, range, power, speed, blast, x, y) {
+   initialize: function(assetIndex, range, power, speed, blast, x, y, upgrade) {
       Sprite.apply(this, [64, 64]);
       this.image = Game.instance.assets[assetIndex];
       this.frame = 0;
@@ -28,10 +32,10 @@ var Tower = Class.create(Sprite, {
       this.y = y;
       this.snapToGrid();
       
-      this.range = range;
-      this.power = power;
-      this.speed = speed;
-      this.blast = blast;
+      this.range = range * upgrade;
+      this.power = power * upgrade;
+      this.speed = speed * upgrade;
+      this.blast = blast * Math.ceil(upgrade / 2);
       
       this.rangeCircle = new Sprite(64, 64);
       this.rangeCircle.image = Game.instance.assets['assets/towers/range.png'];
@@ -95,7 +99,7 @@ var AreaTower = Class.create(Tower, {
    initialize: function(assetIndex, x, y) {
       Tower.apply(this, [assetIndex,
          AreaTowerRange, AreaTowerPower, AreaTowerSpeed,
-         AreaTowerBlast, x, y]);
+         AreaTowerBlast, x, y, AreaUpgradeLevel]);
    },
 	
 	attackArea: function(enemyList) {
@@ -111,7 +115,7 @@ var SingleTower = Class.create(Tower, {
    initialize: function(assetIndex, x, y) {
       Tower.apply(this, [assetIndex,
          SingleTowerRange, SingleTowerPower, SingleTowerSpeed,
-         SingleTowerBlast, x, y]);
+         SingleTowerBlast, x, y, SingleUpgradeLevel]);
    },
 	
 	attackSingle: function(enemyList) {
@@ -127,7 +131,7 @@ var StatusTower = Class.create(Tower, {
    initialize: function(assetIndex, x, y) {
       Tower.apply(this, [assetIndex,
          StatusTowerRange, StatusTowerPower, StatusTowerSpeed,
-         StatusTowerBlast, x, y]);
+         StatusTowerBlast, x, y, StatusUpgradeLevel]);
    },
 	
 	applyStatus: function(enemyList) {
