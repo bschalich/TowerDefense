@@ -30,10 +30,6 @@ var Enemy = Class.create(Sprite, {
       });
 	},
    
-   getEnemyLabel: function() {
-      return this.label;
-   },
-   
    goLeftOrRight: function() {
       if (this.map.checkTile(this.x + 64, this.y) == this.pathTile)
          this.direction = RIGHT;
@@ -80,12 +76,16 @@ var Enemy = Class.create(Sprite, {
       var movement = (event.elapsed * 0.0009) * this.speed;
       switch (this.direction) {
          case UP   : this.y -= movement;
+                     if (this.label) this.label.y -= movement;
                      this.frame = this.anim[this.direction*20 + (this.age%20)]; break;
          case DOWN : this.y += movement; 
+                     if (this.label) this.label.y += movement;
                      this.frame = this.anim[this.direction*20 + (this.age%20)]; break;
          case LEFT : this.x -= movement; 
+                     if (this.label) this.label.x -= movement;
                      this.frame = this.anim[this.direction*20 + (this.age%20)]; break;
          case RIGHT: this.x += movement;
+                     if (this.label) this.label.x += movement;
                      this.frame = this.anim[this.direction*20 + (this.age%20)]; break;
       }
       // this.x = Math.ceil(this.x);
@@ -240,6 +240,8 @@ var ArticunoEnemy = Class.create(Enemy, {
         articunoLabel.x = this.x;
         articunoLabel.y = this.y;
         //level.addChild(articunoLabel);
+        
+        this.label = articunoLabel;
 		
 		this.addEventListener(Event.ENTER_FRAME, this.walk);
 		var label = new Label("F");
