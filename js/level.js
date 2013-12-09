@@ -29,7 +29,7 @@ var createBuyHandler = function(level, TowerClass) {
 };
 
 var Level = Class.create(Scene, {
-   initialize: function(enemyListList, map) {
+   initialize: function(enemyListList, map, healthScale) {
       Scene.apply(this);
       
       this.map = map;
@@ -50,6 +50,7 @@ var Level = Class.create(Scene, {
 		
 		this.enemyListList = enemyListList;
 		this.currentWave = this.enemyListList.pop();
+      this.healthScale = healthScale;
 		this.spawnFrame = 0;
       
       this.gold = 200;
@@ -67,17 +68,17 @@ var Level = Class.create(Scene, {
 		var pbtn = new PauseButton(3, 555);
 		this.buttons.addChild(pbtn);
 	  
-		var btn1 = new UIButtons(3, 380, 521,
+		var singleButton = new UIButtons(3, 380, 521,
          createBuyHandler(this, SingleTower));
-		this.buttons.addChild(btn1);
+		this.buttons.addChild(singleButton);
 	  
-		var btn2 = new UIButtons(15, 445, 521,
+		var statusButton = new UIButtons(15, 445, 521,
          createBuyHandler(this, StatusTower));
-		this.buttons.addChild(btn2);
+		this.buttons.addChild(statusButton);
 	  
-		var btn3 = new UIButtons(12, 510, 521,
+		var areaButton = new UIButtons(12, 510, 521,
          createBuyHandler(this, AreaTower));
-		this.buttons.addChild(btn3);
+		this.buttons.addChild(areaButton);
 	  
 		var btn4 = new UIButtons(0, 575, 521,
          createBuyHandler(this, SingleTower));
@@ -143,6 +144,7 @@ var Level = Class.create(Scene, {
 		if (this.spawnFrame % EnemySpawnRateInWave == 0
 			&& this.currentWave.length > 0) {
          var enemy = this.currentWave.pop();
+         enemy.health *= this.healthScale;
 			this.enemies.addChild(enemy);
          if (enemy.label) this.enemyLabels.addChild(enemy.label);
 		}
@@ -201,7 +203,7 @@ var Level = Class.create(Scene, {
 });
 
 var Level1 = Class.create(Level, {
-	initialize: function() {
+	initialize: function(healthScale) {
 	
       var map = new Map(64, 64);
       map.image = Game.instance.assets['assets/tilesets/map1.png'];
@@ -333,12 +335,12 @@ var Level1 = Class.create(Level, {
 			L1W1.push(new KabutoEnemy(map, 100));
 			L1Enemies.push(L1W1);
          
-		Level.apply(this, [L1Enemies, map]);
+		Level.apply(this, [L1Enemies, map, healthScale]);
 	}
 });
 
 var Level2 = Class.create(Level, {
-	initialize: function() {
+	initialize: function(healthScale) {
 	
       var map = new Map(64, 64);
       map.image = Game.instance.assets['assets/tilesets/map1.png'];
@@ -459,7 +461,7 @@ var Level2 = Class.create(Level, {
 			L1W1.push(new AronEnemy(map, 100));
 			L1Enemies.push(L1W1);
          
-		Level.apply(this, [L1Enemies, map]);
+		Level.apply(this, [L1Enemies, map, healthScale]);
 	}
 });
 
