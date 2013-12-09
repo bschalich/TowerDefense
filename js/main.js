@@ -96,6 +96,7 @@ window.onload = function() {
    game.onload = function() {
       PAUSE_SCREEN = new PauseScreen();
       MENU_SCREEN = new MenuScreen();
+      game.pushScene(new Level3('assets/level1.png'));
       game.pushScene(new Level2('assets/level1.png'));
       game.pushScene(new Level1('assets/level1.png'));
       game.pushScene(new CutScene(7));
@@ -105,7 +106,6 @@ window.onload = function() {
       game.pushScene(new CutScene(3));
       game.pushScene(new CutScene(2));
       game.pushScene(new CutScene(1));
-      
    };
    
    game.start();
