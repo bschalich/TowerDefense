@@ -3,7 +3,7 @@ enchant();
 // Tower constants
 // Range in multiples of 64
 
-var AreaTowerRange = 1.3;
+var AreaTowerRange = 1.8;
 var AreaTowerPower = 5;
 var AreaTowerSpeed = 2;
 var AreaTowerBlast = 10;
@@ -96,7 +96,8 @@ var Tower = Class.create(Sprite, {
 });
 
 var AreaTower = Class.create(Tower, {
-   initialize: function(assetIndex, x, y) {
+   initialize: function(x, y) {
+      var assetIndex = 'assets/towers/industrialAoE' + SingleUpgradeLevel + '.png';
       Tower.apply(this, [assetIndex,
          AreaTowerRange, AreaTowerPower, AreaTowerSpeed,
          AreaTowerBlast, x, y, AreaUpgradeLevel]);
@@ -112,7 +113,8 @@ var AreaTower = Class.create(Tower, {
 });
 
 var SingleTower = Class.create(Tower, {
-   initialize: function(assetIndex, x, y) {
+   initialize: function(x, y) {
+      var assetIndex = 'assets/towers/industrialRanged' + SingleUpgradeLevel + '.png';
       Tower.apply(this, [assetIndex,
          SingleTowerRange, SingleTowerPower, SingleTowerSpeed,
          SingleTowerBlast, x, y, SingleUpgradeLevel]);
@@ -128,7 +130,8 @@ var SingleTower = Class.create(Tower, {
 });
 
 var StatusTower = Class.create(Tower, {
-   initialize: function(assetIndex, x, y) {
+   initialize: function(x, y) {
+      var assetIndex = 'assets/towers/industrialStatus' + SingleUpgradeLevel + '.png';
       Tower.apply(this, [assetIndex,
          StatusTowerRange, StatusTowerPower, StatusTowerSpeed,
          StatusTowerBlast, x, y, StatusUpgradeLevel]);

@@ -139,18 +139,15 @@ var PauseScreen = Class.create(Scene, {
 		pScreen.x = 220; pScreen.y = 245;
 		this.addChild(pScreen);
 		
-		var rButt = new ResumeButton(pScreen);
-		rButt.x = 268; rButt.y = 358;
+		var rButt = new ResumeButton(pScreen, 268, 358);
 		this.addChild(rButt);
    }
 });
 
 
 var PauseButton = Class.create(Button, {
-	initialize: function() {
-		Sprite.apply(this, [20, 20]);
-		this.image = Game.instance.assets['assets/ui/Pause.png'];
-		this.frame = 0;
+	initialize: function(x, y) {
+		Button.apply(this, ['assets/ui/Pause.png', x, y, 20, 20]);
 		
 		this.addEventListener(Event.TOUCH_END, this.pauseGame);	
 	},
@@ -161,10 +158,8 @@ var PauseButton = Class.create(Button, {
 });
 
 var ResumeButton = Class.create(Button, {
-	initialize: function(pScreen) {
-		Sprite.apply(this, [102, 29]);
-		this.image = Game.instance.assets['assets/ui/Resume.png'];
-		this.frame = 0;
+	initialize: function(pScreen, x, y) {
+		Button.apply(this, ['assets/ui/Resume.png', x, y, 102, 29]);
 		
 		this.addEventListener(Event.TOUCH_START, this.clickOn);
 		this.addEventListener(Event.TOUCH_END, this.clickOff);
@@ -201,21 +196,21 @@ var UIPause = Class.create(Sprite, {
 });
 
 var UIButtons = Class.create(Button, {
-	initialize: function() {
-		Sprite.apply(this, [65, 50]);
-		this.image = Game.instance.assets['assets/ui/ButtonTemplate.png'];
-		this.frame = 0;
+	initialize: function(frame, x, y, touchHandler) {
+		Button.apply(this, ['assets/ui/UI_Buttons.png', x, y, 50, 50]);
+		this.frame = frame;
 		
 		this.addEventListener(Event.TOUCH_START, this.clickOn);
 		this.addEventListener(Event.TOUCH_END, this.clickOff);
+      this.addEventListener(Event.TOUCH_END, touchHandler);
 	},
 	
 	clickOn: function() {
-		this.frame = 1;
+		this.frame += 6;
 	},
 	
 	clickOff: function(){
-		this.frame = 0;
+		this.frame -= 6;
 	}
 });
 
