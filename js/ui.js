@@ -1,6 +1,25 @@
+
+// Tower upgrade costs:
+var SingleTowerL2 = 500;
+var StatusTowerL2 = 500;
+var AreaTowerL2   = 500;
+
+var SingleTowerL3 = 2000;
+var StatusTowerL3 = 1000;
+var AreaTowerL3   = 1500;
+
+var SingleTowerSpec1 = 200;
+var SingleTowerSpec2 = 300;
+
+var StatusTowerSpec1 = 250;
+var StatusTowerSpec2 = 300;
+
+var AreaTowerSpec1   = 150;
+var AreaTowerSpec2   = 250;
+
 var Button = Class.create(Sprite, {
-   initialize: function(assetIndex, x, y) {
-      Sprite.apply(this, [50, 50]);
+   initialize: function(assetIndex, x, y, width, height) {
+      Sprite.apply(this, [width, height]);
       
       this.image = Game.instance.assets[assetIndex];
       this.x = x;
@@ -10,7 +29,7 @@ var Button = Class.create(Sprite, {
 
 var SingleTowerBuy = Class.create(Button, {
    initialize: function() {
-      Button.apply(this, ['assets/ui/singletowerbuy.png', 320, 600]);
+      Button.apply(this, ['assets/ui/singletowerbuy.png', 320, 600, 50, 50]);
       
       this.tower = null;
       
@@ -42,6 +61,76 @@ var SingleTowerBuy = Class.create(Button, {
    }
 });*/
 
+var MenuScreen = Class.create(Scene, {
+   initialize: function() {
+      Scene.apply(this);
+      this.PlayerGold = 0;
+      this.SingleTowerLevel = 1;
+      this.AreaTowerLevel   = 1;
+      this.StatusTowerLevel = 1;
+      
+      // Add UI Elements //   
+   },
+   
+   checkGold: function(cost) {
+      return (cost < this.PlayerGold);
+   },
+   
+   upgradeSingle: function() {
+      switch (SingleUpgradeLevel) {
+         case 1: if (this.checkGold(SingleTowerL2)) {
+               this.PlayerGold -= SingleTowerL2;
+               SingleUpgradeLevel++;
+            }
+            break;
+         case 2: if (this.checkGold(SingleTowerL3)) {
+               this.PlayerGold -= SingleTowerL3;
+               SingleUpgradeLevel++;
+               // REMOVE UI UPGRADE ELEMENT
+            }
+            break;
+      }
+   },
+   
+   upgradeStatus: function() {
+      switch (StatusUpgradeLevel) {
+         case 1: if (this.checkGold(StatusTowerL2)) {
+               this.PlayerGold -= StatusTowerL2;
+               StatusUpgradeLevel++;
+            }
+            break;
+         case 2: if (this.checkGold(StatusTowerL3)) {
+               this.PlayerGold -= StatusTowerL3;
+               StatusUpgradeLevel++;
+               // REMOVE UI UPGRADE ELEMENT
+            }
+            break;
+      }
+   },
+   
+   upgradeArea: function() {
+      switch (AreaUpgradeLevel) {
+         case 1: if (this.checkGold(AreaTowerL2)) {
+               this.PlayerGold -= AreaTowerL2;
+               AreaUpgradeLevel++;
+            }
+            break;
+         case 2: if (this.checkGold(AreaTowerL3)) {
+               this.PlayerGold -= AreaTowerL3;
+               AreaUpgradeLevel++;
+               // REMOVE UI UPGRADE ELEMENT
+            }
+            break;
+      }
+   }
+});
+
+var NextLevel = Class.create(Button, {
+   initialize: function() {
+      Button.apply(this, ['assets/ui/Resume.png', 102, 29]);
+   }
+});
+
 var PauseScreen = Class.create(Scene, {
    initialize: function() {
       Scene.apply(this);
@@ -57,25 +146,16 @@ var PauseScreen = Class.create(Scene, {
 });
 
 
-
 var PauseButton = Class.create(Button, {
 	initialize: function() {
 		Sprite.apply(this, [20, 20]);
-		this.image = Game.instance.assets['assets/UI/Pause.png'];
+		this.image = Game.instance.assets['assets/ui/Pause.png'];
 		this.frame = 0;
 		
 		this.addEventListener(Event.TOUCH_END, this.pauseGame);	
 	},
 	
 	pauseGame: function() {
-		// var pScreen = new UIPause();
-		// pScreen.x = 220; pScreen.y = 245;
-		// this.parentNode.addChild(pScreen);
-		
-		// var rButt = new ResumeButton(pScreen);
-		// rButt.x = 268; rButt.y = 358;
-		// this.parentNode.addChild(rButt);
-      
       Game.instance.pushScene(PAUSE_SCREEN);
 	}
 });
@@ -83,7 +163,7 @@ var PauseButton = Class.create(Button, {
 var ResumeButton = Class.create(Button, {
 	initialize: function(pScreen) {
 		Sprite.apply(this, [102, 29]);
-		this.image = Game.instance.assets['assets/UI/Resume.png'];
+		this.image = Game.instance.assets['assets/ui/Resume.png'];
 		this.frame = 0;
 		
 		this.addEventListener(Event.TOUCH_START, this.clickOn);
@@ -107,7 +187,7 @@ var ResumeButton = Class.create(Button, {
 var UIOverlay = Class.create(Sprite, {
 	initialize: function() {
 		Sprite.apply(this, [640, 70]);
-		this.image = Game.instance.assets['assets/UI/Overlay.png'];
+		this.image = Game.instance.assets['assets/ui/Overlay.png'];
 		this.frame = 0;	
 	}
 });
@@ -115,7 +195,7 @@ var UIOverlay = Class.create(Sprite, {
 var UIPause = Class.create(Sprite, {
 	initialize: function() {
 		Sprite.apply(this, [200, 150]);
-		this.image = Game.instance.assets['assets/UI/PauseScreen.png'];
+		this.image = Game.instance.assets['assets/ui/PauseScreen.png'];
 		this.frame = 0;
 	}
 });
@@ -123,7 +203,7 @@ var UIPause = Class.create(Sprite, {
 var UIButtons = Class.create(Button, {
 	initialize: function() {
 		Sprite.apply(this, [65, 50]);
-		this.image = Game.instance.assets['assets/UI/ButtonTemplate.png'];
+		this.image = Game.instance.assets['assets/ui/ButtonTemplate.png'];
 		this.frame = 0;
 		
 		this.addEventListener(Event.TOUCH_START, this.clickOn);
@@ -142,7 +222,7 @@ var UIButtons = Class.create(Button, {
 var UIResource = Class.create(Sprite, {
 	initialize: function() {
 		Sprite.apply(this, [640, 40]);
-		this.image = Game.instance.assets['assets/UI/Resource.png'];
+		this.image = Game.instance.assets['assets/ui/Resource.png'];
 		this.frame = 0;
 	}
 	
