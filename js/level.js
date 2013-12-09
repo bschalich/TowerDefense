@@ -115,6 +115,7 @@ var Level = Class.create(Scene, {
    
    everyFrame: function(event) {
       if (!this.playing)  {
+         Game.instance.assets['assets/background.mp3'].stop();
          Game.instance.assets['assets/background.mp3'].play();
          this.playing = true;
       }
