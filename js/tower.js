@@ -23,8 +23,8 @@ var SingleTowerSpeed = 1;
 var SingleTowerBlast = 1;
 
 var SingleUpgradeLevel = 1;
-var StatusUpgradeLevel = 2;
-var AreaUpgradeLevel   = 3;
+var StatusUpgradeLevel = 1;
+var AreaUpgradeLevel   = 1;
 
 var Tower = Class.create(Sprite, {
    initialize: function(assetIndex, range, power, speed, blast, cost, x, y, upgrade) {

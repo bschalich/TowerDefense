@@ -81,6 +81,8 @@ window.onload = function() {
 'assets/towers/industrialRanged3.png',
 'assets/towers/neonStatus1.png',
 'assets/towers/stoneRanged1.png',
+'assets/towers/stoneRanged2.png',
+'assets/towers/stoneRanged3.png',
 'assets/towers/industrialRanged2.png',
 'assets/towers/industrialStatus3.png',
 'assets/towers/stoneStatus1.png',
@@ -91,7 +93,10 @@ window.onload = function() {
 'assets/background.mp3',
 'assets/getItem.wav',
 'assets/ui/TutorialScreen.png',
-'assets/button_pressed.wav');
+'assets/button_pressed.wav',
+'assets/ui/SingleBuy.png',
+'assets/ui/AreaBuy.png',
+'assets/ui/StatusBuy.png');
    
    game.fps = 30;
    game.onload = function() {
@@ -114,6 +119,8 @@ window.onload = function() {
       game.pushScene(new CutScene(3));
       game.pushScene(new CutScene(2));
       game.pushScene(new CutScene(1));
+      
+      game.assets['assets/background.mp3'].play();
    };
    
    game.start();

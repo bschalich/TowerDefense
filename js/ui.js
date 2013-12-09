@@ -17,6 +17,12 @@ var StatusTowerSpec2 = 300;
 var AreaTowerSpec1   = 150;
 var AreaTowerSpec2   = 250;
 
+
+   
+var checkGold = function(cost) {
+   return (cost < PLAYER_GOLD);
+}
+
 var Button = Class.create(Sprite, {
    initialize: function(assetIndex, x, y, width, height) {
       Sprite.apply(this, [width, height]);
@@ -61,6 +67,84 @@ var SingleTowerBuy = Class.create(Button, {
    }
 });*/
 
+var UpgradeSingleButton = Class.create(Button, {
+   initialize: function() {
+      Button.apply(this, ['assets/ui/SingleBuy.png', 100, 100, 65, 50]);
+      
+      this.addEventListener(Event.TOUCH_START, this.upgradeSingle);
+   },
+   
+   upgradeSingle: function() {
+      switch (SingleUpgradeLevel) {
+         case 1: if (checkGold(SingleTowerL2)) {
+               PLAYER_GOLD -= SingleTowerL2;
+               SingleUpgradeLevel++;
+            }
+            break;
+         case 2: if (checkGold(SingleTowerL3)) {
+               PLAYER_GOLD -= SingleTowerL3;
+               SingleUpgradeLevel++;
+               // REMOVE UI UPGRADE ELEMENT
+            }
+            break;
+      }
+      
+      console.log(SingleUpgradeLevel);
+   }
+});
+
+var UpgradeStatusButton = Class.create(Button, {
+   initialize: function() {
+      Button.apply(this, ['assets/ui/StatusBuy.png', 100, 250, 65, 50]);
+      
+      this.addEventListener(Event.TOUCH_START, this.upgradeStatus);
+   },
+   
+   upgradeStatus: function() {
+      switch (StatusUpgradeLevel) {
+         case 1: if (checkGold(StatusTowerL2)) {
+               PLAYER_GOLD -= StatusTowerL2;
+               StatusUpgradeLevel++;
+            }
+            break;
+         case 2: if (checkGold(StatusTowerL3)) {
+               PLAYER_GOLD -= StatusTowerL3;
+               StatusUpgradeLevel++;
+               // REMOVE UI UPGRADE ELEMENT
+            }
+            break;
+      }
+      
+      console.log(StatusUpgradeLevel);
+   }
+});
+
+var UpgradeAreaButton = Class.create(Button, {
+   initialize: function() {
+      Button.apply(this, ['assets/ui/AreaBuy.png', 100, 175, 65, 50]);
+      
+      this.addEventListener(Event.TOUCH_START, this.upgradeArea);
+   },
+   
+   upgradeArea: function() {
+      switch (AreaUpgradeLevel) {
+         case 1: if (checkGold(AreaTowerL2)) {
+               PLAYER_GOLD -= AreaTowerL2;
+               AreaUpgradeLevel++;
+            }
+            break;
+         case 2: if (checkGold(AreaTowerL3)) {
+               PLAYER_GOLD -= AreaTowerL3;
+               AreaUpgradeLevel++;
+               // REMOVE UI UPGRADE ELEMENT
+            }
+            break;
+      }
+      
+      console.log(AreaUpgradeLevel);
+   }
+});
+
 var MenuScreen = Class.create(Scene, {
    initialize: function() {
       Scene.apply(this);
@@ -69,61 +153,13 @@ var MenuScreen = Class.create(Scene, {
       this.AreaTowerLevel   = 1;
       this.StatusTowerLevel = 1;
       
+      this.addChild(new UpgradeSingleButton());
+      this.addChild(new UpgradeStatusButton());
+      this.addChild(new UpgradeAreaButton());
+      
       this.addChild(new NextLevel());
       
       // Add UI Elements //   
-   },
-   
-   checkGold: function(cost) {
-      return (cost < PLAYER_GOLD);
-   },
-   
-   upgradeSingle: function() {
-      switch (SingleUpgradeLevel) {
-         case 1: if (this.checkGold(SingleTowerL2)) {
-               PLAYER_GOLD -= SingleTowerL2;
-               SingleUpgradeLevel++;
-            }
-            break;
-         case 2: if (this.checkGold(SingleTowerL3)) {
-               PLAYER_GOLD -= SingleTowerL3;
-               SingleUpgradeLevel++;
-               // REMOVE UI UPGRADE ELEMENT
-            }
-            break;
-      }
-   },
-   
-   upgradeStatus: function() {
-      switch (StatusUpgradeLevel) {
-         case 1: if (this.checkGold(StatusTowerL2)) {
-               PLAYER_GOLD -= StatusTowerL2;
-               StatusUpgradeLevel++;
-            }
-            break;
-         case 2: if (this.checkGold(StatusTowerL3)) {
-               PLAYER_GOLD -= StatusTowerL3;
-               StatusUpgradeLevel++;
-               // REMOVE UI UPGRADE ELEMENT
-            }
-            break;
-      }
-   },
-   
-   upgradeArea: function() {
-      switch (AreaUpgradeLevel) {
-         case 1: if (this.checkGold(AreaTowerL2)) {
-               PLAYER_GOLD -= AreaTowerL2;
-               AreaUpgradeLevel++;
-            }
-            break;
-         case 2: if (this.checkGold(AreaTowerL3)) {
-               PLAYER_GOLD -= AreaTowerL3;
-               AreaUpgradeLevel++;
-               // REMOVE UI UPGRADE ELEMENT
-            }
-            break;
-      }
    }
 });
 

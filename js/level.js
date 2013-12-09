@@ -1,6 +1,6 @@
 enchant();
 
-var EnemySpawnRateInWave = 60;
+var EnemySpawnRateInWave = 50;
 var WaveSpawnRate = 500;
 
 var STATUS = 15;
@@ -114,6 +114,10 @@ var Level = Class.create(Scene, {
    },
    
    everyFrame: function(event) {
+      if (!this.playing)  {
+         Game.instance.assets['assets/background.mp3'].play();
+         this.playing = true;
+      }
       this.attack(event.elapsed);
 		this.spawnEnemies();
       this.checkLevelEnd();
