@@ -13,7 +13,7 @@ var AreaTowerSpeed = 2;
 var AreaTowerBlast = 10;
 
 var StatusTowerRange = 1.5;
-var StatusTowerPower = 10;
+var StatusTowerPower = 15;
 var StatusTowerSpeed = 0.2;
 var StatusTowerBlast = 10;
 
@@ -111,7 +111,7 @@ var AreaTower = Class.create(Tower, {
 	attackArea: function(enemyList) {
 		for (var i = 0; i < enemyList.length; i++) {
 			var enemy = enemyList[i];
-			var blt = new AreaShoot('assets/enemies/groudonSheet.png', this.x, this.y, enemy.x, enemy.y, enemy, this.power);
+			var blt = new AreaShoot('assets/bullet/rock.png', this.x, this.y, enemy.x, enemy.y, enemy, this.power);
          this.parentNode.parentNode.addChild(blt);
 		}
 	}
@@ -129,7 +129,7 @@ var SingleTower = Class.create(Tower, {
       //console.log(enemyList[0]);
       for (var i = 0; i < enemyList.length; i++) {
          enemy = enemyList[i];
-         var blt = new SingleShoot('assets/enemies/groudonSheet.png', this.x, this.y, enemy.x, enemy.y, enemy, this.power);
+         var blt = new SingleShoot('assets/bullet/arrow.png', this.x, this.y, enemy.x, enemy.y, enemy, this.power);
          this.parentNode.parentNode.addChild(blt);
       }
 	}
@@ -146,7 +146,7 @@ var StatusTower = Class.create(Tower, {
 	applyStatus: function(enemyList) {
 		for (var i = 0; i < enemyList.length; i++) {
          var enemy = enemyList[i];
-	      var blt = new StatusShoot('assets/enemies/groudonSheet.png', this.x, this.y, enemy.x, enemy.y, enemy, this.power);
+	      var blt = new StatusShoot('assets/bullet/dreamcatcher.png', this.x, this.y, enemy.x, enemy.y, enemy, this.power);
          this.parentNode.parentNode.addChild(blt);
 		}
 	}
