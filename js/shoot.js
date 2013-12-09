@@ -2,7 +2,7 @@ enchant();
 
 var Shoot = Class.create(Sprite, {
    initialize: function(assetIndex, x, y, toX, toY, enemy) {
-      Sprite.apply(this, [32, 32]);
+      Sprite.apply(this, [64, 64]);
       this.image = Game.instance.assets[assetIndex];
 		this.frame = 6;
 
@@ -12,7 +12,7 @@ var Shoot = Class.create(Sprite, {
       this.toX = toX+16;
       this.toY = toY+16;
 
-      this.moveSpeed = 20;
+      this.moveSpeed = 15;
 
       //Have the bullet go to the target
       this.addEventListener(Event.ENTER_FRAME, function(){
