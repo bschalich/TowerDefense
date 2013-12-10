@@ -245,24 +245,29 @@ var UIButtons = Class.create(Button, {
 		Button.apply(this, ['assets/ui/UI_Buttons.png', x, y, 65, 50]);
 		this.frame = frame;
 		
-      this.slowAbility = new Label("ABILITY: Slows all enemies in range.");
-      this.slowAbility.x = 150; this.slowAbility.y = 513;  
+      this.slowAbility = new Label("Snaring Traps: Slows all enemies in range.");
+      this.slowAbility.x = 125; this.slowAbility.y = 513;  
 
-      this.aoeAbility = new Label("ABILITY: Attacks multiple enemies.");
-      this.aoeAbility.x = 150; this.aoeAbility.y = 513;
+      this.aoeAbility = new Label("Boulder Tossers: Attacks multiple enemies.");
+      this.aoeAbility.x = 125; this.aoeAbility.y = 513;
 
+      this.singleAbility = new Label("Archers: Attacks the oldest enemy.");
+      this.singleAbility.x = 125; this.singleAbility.y = 513;
+
+      
+      
       switch(frame)
       {
          case SINGLE:
-           var tower = new SingleTower(x, y);
+           tower = new SingleTower(x, y);
            this.cost = 50;
            break;
          case AREA:
-           var tower = new AreaTower(x, y);
+           tower = new AreaTower(x, y);
            this.cost = 75;
            break;
          case STATUS:
-           var tower = new StatusTower(x, y);
+           tower = new StatusTower(x, y);
            this.cost = 100;
            break;
          default:
@@ -271,7 +276,19 @@ var UIButtons = Class.create(Button, {
 
       this.cLabel = new Label("Cost: " + this.cost);
       this.cLabel.color = "rgb(255, 215, 0)";
-      this.cLabel.x = 80; this.cLabel.y = 513; 
+      this.cLabel.x = 68; this.cLabel.y = 513; 
+
+      this.damageL = new Label(tower.power + " dmg");
+      this.damageL.x =70; this.damageL.y = 550;
+
+      this.slowL = new Label("-" + tower.power + " speed");
+      this.slowL.x =70; this.slowL.y = 550;
+
+      this.rangeL = new Label(tower.range * 64 + " px");
+      this.rangeL.x =170; this.rangeL.y = 550;
+
+      this.speedL = new Label(tower.speed.toFixed(2) + "/sec");
+      this.speedL.x =280; this.speedL.y = 550;
 
       //Create a new label for range, cost, damage, and speed.
       //Also talk about AoE shits or slows.
@@ -284,14 +301,33 @@ var UIButtons = Class.create(Button, {
 	
 	clickOn: function() {
       this.frame += 6;
-
+      
+      if(this.cost > Game.instance.currentScene.gold)
+         this.cLabel.color = "rgb(255, 0, 0)";
+      else
+         this.cLabel.color = "rgb(255, 215, 0)";
       this.parentNode.addChild(this.cLabel);
+      
+      //Show damage icon
+      if(this.frame == STATUS + 6)
+         this.parentNode.addChild(this.slowL);
+      else
+         this.parentNode.addChild(this.damageL);
+
+      //Show range icon
+      this.parentNode.addChild(this.rangeL);
+
+      //Show speed icon
+      this.parentNode.addChild(this.speedL);
       
       if(this.frame == AREA + 6) {
          this.parentNode.addChild(this.aoeAbility);
       }
-      if(this.frame == STATUS + 6) {
+      else if(this.frame == STATUS + 6) {
          this.parentNode.addChild(this.slowAbility);
+      }
+      else if(this.frame == SINGLE + 6) {
+         this.parentNode.addChild(this.singleAbility);
       }
 	},
 	
@@ -300,11 +336,23 @@ var UIButtons = Class.create(Button, {
 
       this.parentNode.removeChild(this.cLabel);
       
+      if(this.frame == STATUS)
+         this.parentNode.removeChild(this.slowL);
+      else
+         this.parentNode.removeChild(this.damageL);
+
+      this.parentNode.removeChild(this.rangeL);
+      this.parentNode.removeChild(this.speedL);
+
+
       if(this.frame == AREA) {
          this.parentNode.removeChild(this.aoeAbility);
       }
-      if(this.frame == STATUS) {
+      else if(this.frame == STATUS) {
          this.parentNode.removeChild(this.slowAbility);
+      }
+      else if(this.frame == SINGLE) {
+         this.parentNode.removeChild(this.singleAbility);
       }
 	}
 });

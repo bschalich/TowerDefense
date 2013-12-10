@@ -50,6 +50,28 @@ var Tower = Class.create(Sprite, {
       
       this.attackTimer = 0.0;
       
+      this.slowAbility = new Label("Snaring Traps: Slows all enemies in range.");
+      this.slowAbility.x = 125; this.slowAbility.y = 513;  
+
+      this.aoeAbility = new Label("Boulder Tossers: Attacks multiple enemies.");
+      this.aoeAbility.x = 125; this.aoeAbility.y = 513;
+
+      this.singleAbility = new Label("Archers: Attacks the oldest enemy.");
+      this.singleAbility.x = 125; this.singleAbility.y = 513;   
+
+      this.damageL = new Label(this.power + " dmg");
+      this.damageL.x =70; this.damageL.y = 550;
+
+      this.slowL = new Label("-" + this.power + " speed");
+      this.slowL.x =70; this.slowL.y = 550;
+
+      this.rangeL = new Label(this.range * 64 + " px");
+      this.rangeL.x =170; this.rangeL.y = 550;
+
+      this.speedL = new Label(this.speed.toFixed(2) + "/sec");
+      this.speedL.x =280; this.speedL.y = 550;
+
+
       this.addEventListener(Event.TOUCH_START, this.showMenu);
       this.addEventListener(Event.TOUCH_END, this.closeMenu);
    },
@@ -59,12 +81,52 @@ var Tower = Class.create(Sprite, {
       this.y = (Math.floor(this.y / 64) * 64);
    },
    
-   showMenu: function(event) {
+  showMenu: function(event) {
       this.parentNode.parentNode.addChild(this.rangeCircle);
+
+      //Show damage icon
+      if(this instanceof StatusTower)
+         this.parentNode.parentNode.addChild(this.slowL);
+      else
+         this.parentNode.parentNode.addChild(this.damageL);
+
+      //Show range icon
+      this.parentNode.parentNode.addChild(this.rangeL);
+
+      //Show speed icon
+      this.parentNode.parentNode.addChild(this.speedL);
+
+      if(this instanceof AreaTower) {
+         this.parentNode.parentNode.addChild(this.aoeAbility);
+      }
+      else if(this instanceof StatusTower) {
+         this.parentNode.parentNode.addChild(this.slowAbility);
+      }
+      else if(this instanceof SingleTower) {
+         this.parentNode.parentNode.addChild(this.singleAbility);
+      }
    },
    
    closeMenu: function() {
       this.parentNode.parentNode.removeChild(this.rangeCircle);
+
+      if(this instanceof StatusTower)
+         this.parentNode.parentNode.removeChild(this.slowL);
+      else
+         this.parentNode.parentNode.removeChild(this.damageL);
+
+      this.parentNode.parentNode.removeChild(this.rangeL);
+      this.parentNode.parentNode.removeChild(this.speedL);
+
+      if(this instanceof AreaTower) {
+         this.parentNode.parentNode.removeChild(this.aoeAbility);
+      }
+      else if(this instanceof StatusTower) {
+         this.parentNode.parentNode.removeChild(this.slowAbility);
+      }
+      else if(this instanceof SingleTower) {
+         this.parentNode.parentNode.removeChild(this.singleAbility);
+      }
    },
    
    isReloaded: function(elapsed) {

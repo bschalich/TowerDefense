@@ -92,10 +92,17 @@ var Level = Class.create(Scene, {
 		var goldLabel = new Label("Rupiis: " + this.gold);
 		goldLabel.color = "rgb(255, 215, 0)";
 		goldLabel.x = 5;
-		goldLabel.y = 10;
+		goldLabel.y = 1;
 
 		this.goldL = goldLabel;
 		this.addChild(goldLabel);
+
+      var levelLabel = new Label("Level: " + this.currLevel);
+      levelLabel.color = "rgb(255, 255, 255)";
+      levelLabel.x = 5;
+      levelLabel.y = 15;
+
+      this.addChild(levelLabel);
 
       this.myLife = new Array();
       for(var g = 0; g < 15 ; g++){
@@ -115,7 +122,6 @@ var Level = Class.create(Scene, {
    
    everyFrame: function(event) {
       if (!this.playing)  {
-         Game.instance.assets['assets/background.mp3'].stop();
          Game.instance.assets['assets/background.mp3'].play();
          this.playing = true;
       }
@@ -152,7 +158,15 @@ var Level = Class.create(Scene, {
    gameOver: function() {
       if (PLAYER_HEALTH < 0) {
          PLAYER_HEALTH = 14;
-         Game.instance.replaceScene(new Game.instance.currentScene.currLevel()); 
+         
+         switch (currLevel) {
+            case 1: Game.instance.replaceScene(new Level1(Game.instance.currentScene.healthScale));
+               break;
+            case 2: Game.instance.replaceScene(new Level2(Game.instance.currentScene.healthScale));
+               break;
+            case 3: Game.instance.replaceScene(new Level3(Game.instance.currentScene.healthScale));
+               break;
+         }
          
          //Select retry
 
@@ -224,7 +238,7 @@ var Level = Class.create(Scene, {
 
 var Level1 = Class.create(Level, {
 	initialize: function(healthScale) {
-	
+	   PLAYER_HEALTH = 14;
       var map = new Map(64, 64);
       map.image = Game.instance.assets['assets/tilesets/map1.png'];
       
@@ -355,13 +369,13 @@ var Level1 = Class.create(Level, {
 			L1W1.push(new KabutoEnemy(map, 100));
 			L1Enemies.push(L1W1);
          
-		Level.apply(this, [L1Enemies, map, healthScale, Level1]);
+		Level.apply(this, [L1Enemies, map, healthScale, 1]);
 	}
 });
 
 var Level2 = Class.create(Level, {
 	initialize: function(healthScale) {
-	
+	   PLAYER_HEALTH = 14;
       var map = new Map(64, 64);
       map.image = Game.instance.assets['assets/tilesets/map1.png'];
       
@@ -481,13 +495,13 @@ var Level2 = Class.create(Level, {
 			L1W1.push(new AronEnemy(map, 100));
 			L1Enemies.push(L1W1);
 
-		Level.apply(this, [L1Enemies, map, healthScale, Level2]);
+		Level.apply(this, [L1Enemies, map, healthScale, 2]);
 	}
 });
 
 var Level3 = Class.create(Level, {
 	initialize: function(healthScale) {
-	
+	   PLAYER_HEALTH = 14;
       var map = new Map(64, 64);
 
       map.image = Game.instance.assets['assets/tilesets/map1.png'];
@@ -608,7 +622,7 @@ var Level3 = Class.create(Level, {
 			L1W1.push(new PorygonEnemy(map, 100));
 			L1Enemies.push(L1W1);
          
-		Level.apply(this, [L1Enemies, map, healthScale, Level3]);
+		Level.apply(this, [L1Enemies, map, healthScale, 3]);
 	}
 });
 
